@@ -1,0 +1,109 @@
+/* Police Anton self-hébergée (fiable sur Safari iOS, contrairement au CDN Google Fonts) */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/anton-latin.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ── Scrollbar custom ── */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #2563eb 0%, #6366f1 50%, #2563eb 100%);
+    border-radius: 999px;
+    background-size: 100% 200%;
+    animation: scrollbar-glow 3s ease-in-out infinite;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #1d4ed8 0%, #4f46e5 50%, #1d4ed8 100%);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #3b82f6 0%, #818cf8 50%, #3b82f6 100%);
+    background-size: 100% 200%;
+  }
+  @keyframes scrollbar-glow {
+    0%, 100% { background-position: 0% 0%; }
+    50%       { background-position: 0% 100%; }
+  }
+  body {
+    @apply font-mono text-slate-900 bg-white antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: transform, opacity;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 650ms cubic-bezier(0.16,1,0.3,1),
+                transform 650ms cubic-bezier(0.16,1,0.3,1);
+  }
+  .revealDelay1.is-visible { transition-delay: 80ms; }
+  .revealDelay2.is-visible { transition-delay: 180ms; }
+  .revealDelay3.is-visible { transition-delay: 280ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal.is-visible {
+      transition: none; transform: none; opacity: 1;
+    }
+  }
+
+  /* ── Ombre réaliste sur les titres de section ── */
+  .heading-shadow {
+    text-shadow:
+      1px 2px 0px rgba(0,0,0,0.08),
+      2px 4px 8px rgba(0,0,0,0.12),
+      4px 12px 28px rgba(0,0,0,0.07);
+  }
+  .dark .heading-shadow {
+    text-shadow:
+      0 2px 12px rgba(99,102,241,0.35),
+      0 4px 32px rgba(59,130,246,0.2),
+      0 0 60px rgba(99,102,241,0.1);
+  }
+
+  /* ── Glow logo compétences au hover ── */
+  .skill-logo:hover {
+    filter: drop-shadow(0 0 8px rgba(59,130,246,0.6));
+  }
+  .dark .skill-logo:hover {
+    filter: drop-shadow(0 0 10px rgba(99,102,241,0.7));
+  }
+
+  /* ── Texte à dégradé animé (clair + sombre) ── */
+  .gradient-text {
+    background-image: linear-gradient(90deg, #2563eb, #6366f1, #8b5cf6, #2563eb);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradient-flow 7s linear infinite;
+  }
+  .dark .gradient-text {
+    background-image: linear-gradient(90deg, #60a5fa, #818cf8, #a78bfa, #60a5fa);
+  }
+  @keyframes gradient-flow {
+    to { background-position: 200% center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gradient-text { animation: none; }
+  }
+}

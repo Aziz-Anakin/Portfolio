@@ -1,0 +1,41 @@
+const DEV = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons'
+
+export const SKILLS = {
+  creation: [
+    { name: 'Canva',      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6rolZP4u04yZ3fQblkxapLK3Esxnwn3kPw&s",                                                                                        href: 'https://www.canva.com' },
+    { name: 'Blender',    logo: `${DEV}/blender/blender-original.svg`,                                                                                        href: 'https://www.blender.org' },
+    { name: 'WordPress',  logo: `${DEV}/wordpress/wordpress-plain.svg`,                                                                                       href: 'https://wordpress.org' },
+    { name: 'Photoshop',  logo: `${DEV}/photoshop/photoshop-plain.svg`,                                                                                       href: 'https://www.adobe.com/fr/products/photoshop.html' },
+    { name: 'Figma',      logo: `${DEV}/figma/figma-original.svg`,                                                                                            href: 'https://www.figma.com' },
+  ],
+  dev: [
+    { name: 'HTML',         logo: `${DEV}/html5/html5-original.svg`,                                                                                          href: 'https://developer.mozilla.org/fr/docs/Web/HTML' },
+    { name: 'CSS',          logo: `${DEV}/css3/css3-original.svg`,                                                                                            href: 'https://developer.mozilla.org/fr/docs/Web/CSS' },
+    { name: 'JavaScript',   logo: `${DEV}/javascript/javascript-original.svg`,                                                                                href: 'https://developer.mozilla.org/fr/docs/Web/JavaScript' },
+    { name: 'TypeScript',   logo: `${DEV}/typescript/typescript-original.svg`,                                                                                href: 'https://www.typescriptlang.org' },
+    { name: 'React',        logo: `${DEV}/react/react-original.svg`,                                                                                          href: 'https://react.dev' },
+    { name: 'Vue.js',       logo: `${DEV}/vuejs/vuejs-original.svg`,                                                                                         href: 'https://vuejs.org' },
+    { name: 'Next.js',      logo: `${DEV}/nextjs/nextjs-original.svg`,                                                                                        href: 'https://nextjs.org' },
+    { name: 'Nuxt.js',      logo: `${DEV}/nuxtjs/nuxtjs-original.svg`,                                                                                        href: 'https://nuxt.com' },
+    { name: 'Node.js',      logo: `${DEV}/nodejs/nodejs-original.svg`,                                                                                        href: 'https://nodejs.org' },
+    { name: 'PHP',          logo: `${DEV}/php/php-original.svg`,                                                                                              href: 'https://www.php.net' },
+    { name: 'Laravel',      logo: `${DEV}/laravel/laravel-original.svg`,                                                                                      href: 'https://laravel.com' },
+    { name: 'Python',       logo: `${DEV}/python/python-original.svg`,                                                                                        href: 'https://www.python.org' },
+    { name: 'SQL Server',   logo: `${DEV}/microsoftsqlserver/microsoftsqlserver-original.svg`,                                                                href: 'https://www.microsoft.com/sql-server' },
+    { name: 'PostgreSQL',   logo: `${DEV}/postgresql/postgresql-original.svg`,                                                                                href: 'https://www.postgresql.org' },
+    { name: 'Rust',         logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/500px-Rust_programming_language_black_logo.svg.png", href: 'https://www.rust-lang.org' },
+  ],
+  tools: [
+    { name: 'Git',          logo: `${DEV}/git/git-original.svg`,                                                                                              href: 'https://git-scm.com' },
+    { name: 'GitHub',       logo: `${DEV}/github/github-original.svg`,                                                                                        href: 'https://github.com' },
+    { name: 'Azure DevOps', logo: `${DEV}/azuredevops/azuredevops-original.svg`,                                                                              href: 'https://azure.microsoft.com/products/devops' },
+    { name: 'Docker',       logo: `${DEV}/docker/docker-original.svg`,                                                                                        href: 'https://www.docker.com' },
+    { name: 'Postman',      logo: `${DEV}/postman/postman-original.svg`,                                                                                      href: 'https://www.postman.com' },
+    { name: 'Vercel',       logo: `${DEV}/vercel/vercel-original.svg`,                                                                                        href: 'https://vercel.com' },
+    { name: 'Trello',       logo: `${DEV}/trello/trello-plain.svg`,                                                                                           href: 'https://trello.com' },
+    { name: 'Teams',        logo: "https://upload.wikimedia.org/wikipedia/fr/thumb/6/66/Logo_Microsoft_Teams_%282025%29.svg/1280px-Logo_Microsoft_Teams_%282025%29.svg.png", href: 'https://www.microsoft.com/fr-fr/microsoft-teams' },
+    { name: 'Burp Suite',   logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/BurpSuite_Comunity_Edition.svg/250px-BurpSuite_Comunity_Edition.svg.png", href: 'https://portswigger.net/burp' },
+    { name: 'VirtualBox',   logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Virtualbox_logo.png/330px-Virtualbox_logo.png",                            href: 'https://www.virtualbox.org' },
+    { name: 'FileZilla',    logo: "https://img.icons8.com/color/512/filezilla.png",                href: 'https://filezilla-project.org' },
+  ],
+}
