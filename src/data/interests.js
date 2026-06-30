@@ -25,9 +25,9 @@ export const INTERESTS = [
     blurb: 'Course, exploration spatiale et action-aventure.',
     cover: forza,
     items: [
-      { name: 'Forza Horizon', image: forza },
+      { name: 'Forza Horizon 6', image: forza },
       { name: 'Star Citizen', image: starCitizen },
-      { name: "Marvel's Spider-Man", image: spiderman },
+      { name: "Marvel's Spider-Man 2", image: spiderman },
       { name: 'Batman: Arkham', image: batman },
       { name: 'Sea of Thieves', image: seaOfThieves },
       { name: 'Phasmophobia', image: phasmophobia },
