@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yanis Mdoughy | Étudiant en Développement Web</title>
+
+    <!-- Meta SEO de base -->
+    <meta name="description" content="Portfolio de Yanis Mdoughy, étudiant passionné par le développement web (React, JavaScript). Découvrez mes projets d'apprentissage, compétences et réalisations." />
+    <meta name="author" content="Yanis Mdoughy" />
+    <meta name="keywords" content="Yanis Mdoughy, Étudiant Développeur, Étudiant Informatique, Portfolio, React, JavaScript, Développement Web, Apprentissage" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://aziz-anakin.github.io/Portfolio/" />
+
+    <!-- Open Graph (LinkedIn, Facebook, Discord) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aziz-anakin.github.io/Portfolio/" />
+    <meta property="og:title" content="Yanis Mdoughy | Étudiant en Développement Web" />
+    <meta property="og:description" content="Portfolio de Yanis Mdoughy, étudiant passionné par le développement web (React, JavaScript). Découvrez mes projets et réalisations." />
+    <meta property="og:image" content="https://aziz-anakin.github.io/Portfolio/og-image.jpg" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Portfolio Yanis Mdoughy" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://aziz-anakin.github.io/Portfolio/" />
+    <meta name="twitter:title" content="Yanis Mdoughy | Étudiant en Développement Web" />
+    <meta name="twitter:description" content="Portfolio de Yanis Mdoughy, étudiant passionné par le développement web (React, JavaScript)." />
+    <meta name="twitter:image" content="https://aziz-anakin.github.io/Portfolio/og-image.jpg" />
+
+    <!-- Favicon & Fonts -->
+    <link rel="icon" type="image/png" href="/src/assets/images/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Gestion dynamique du thème sombre -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme')
+          if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+          }
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" crossorigin src="/src/main.jsx"></script>
+  </body>
+</html>
