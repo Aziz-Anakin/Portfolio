@@ -141,6 +141,7 @@ export const LogoLoop = memo(
     const [seqHeight, setSeqHeight] = useState(0);
     const [copyCount, setCopyCount] = useState(ANIMATION_CONFIG.MIN_COPIES);
     const [isHovered, setIsHovered] = useState(false);
+    const [clicked, setClicked] = useState(false);
 
     const effectiveHoverSpeed = useMemo(() => {
       if (hoverSpeed !== undefined) return hoverSpeed;
@@ -198,7 +199,7 @@ export const LogoLoop = memo(
 
     useImageLoader(seqRef, updateDimensions, measureDeps);
 
-    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
+    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered || clicked, effectiveHoverSpeed, isVertical);
 
     const cssVariables = useMemo(
       () => ({
@@ -222,6 +223,11 @@ export const LogoLoop = memo(
           .join(' '),
       [isVertical, fadeOut, scaleOnHover, className]
     );
+
+    // Un clic (ou un tap qui n'est pas un scroll) fige le défilement jusqu'au clic suivant.
+    const toggleClicked = useCallback(() => {
+      if (effectiveHoverSpeed !== undefined) setClicked(v => !v);
+    }, [effectiveHoverSpeed]);
 
     const handleMouseEnter = useCallback(() => {
       if (effectiveHoverSpeed !== undefined) setIsHovered(true);
@@ -342,13 +348,15 @@ export const LogoLoop = memo(
     return (
       <div ref={containerRef} className={rootClassName} style={containerStyle} role="region" aria-label={ariaLabel}>
         <div
-          className="logoloop__track"
+          className={`logoloop__track ${effectiveHoverSpeed !== undefined ? 'cursor-pointer' : ''}`}
           ref={trackRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerRelease}
           onPointerCancel={handlePointerRelease}
+          onClick={toggleClicked}
+          title={effectiveHoverSpeed !== undefined ? (clicked ? 'Cliquer pour relancer' : 'Cliquer pour figer') : undefined}
         >
           {logoLists}
         </div>
