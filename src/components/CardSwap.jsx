@@ -109,16 +109,35 @@ const CardSwap = forwardRef(function CardSwap(
     }
 
     const node = container.current
+    let resumeTimer = 0
     const onEnter = () => {
       hovered = true
+      tlRef.current?.pause()
       restart()
     }
     const onLeave = () => {
       hovered = false
+      tlRef.current?.play()
       restart()
     }
-    node.addEventListener('mouseenter', onEnter)
-    node.addEventListener('mouseleave', onLeave)
+    // Souris : pause au survol. Doigt : pause au contact, reprise 3,5 s après (pas de survol au tactile).
+    const onPointerEnter = (e) => e.pointerType === 'mouse' && onEnter()
+    const onPointerLeave = (e) => e.pointerType === 'mouse' && onLeave()
+    const onPointerDown = (e) => {
+      if (e.pointerType === 'mouse') return
+      window.clearTimeout(resumeTimer)
+      onEnter()
+    }
+    const onPointerUp = (e) => {
+      if (e.pointerType === 'mouse') return
+      window.clearTimeout(resumeTimer)
+      resumeTimer = window.setTimeout(onLeave, 3500)
+    }
+    node.addEventListener('pointerenter', onPointerEnter)
+    node.addEventListener('pointerleave', onPointerLeave)
+    node.addEventListener('pointerdown', onPointerDown)
+    node.addEventListener('pointerup', onPointerUp)
+    node.addEventListener('pointercancel', onPointerUp)
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting
       restart()
@@ -126,8 +145,12 @@ const CardSwap = forwardRef(function CardSwap(
     observer.observe(node)
 
     return () => {
-      node.removeEventListener('mouseenter', onEnter)
-      node.removeEventListener('mouseleave', onLeave)
+      node.removeEventListener('pointerenter', onPointerEnter)
+      node.removeEventListener('pointerleave', onPointerLeave)
+      node.removeEventListener('pointerdown', onPointerDown)
+      node.removeEventListener('pointerup', onPointerUp)
+      node.removeEventListener('pointercancel', onPointerUp)
+      window.clearTimeout(resumeTimer)
       observer.disconnect()
       clearInterval(intervalId)
       tlRef.current?.kill()
