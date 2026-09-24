@@ -6,13 +6,13 @@ import { STEAM_GAMES, ADN_ANIMES } from '../data/interests'
 import mark from '../assets/marks/one-piece-1.svg'
 
 // Vignette de lancement : image de fond assombrie, logo, intitulé et compte.
-function LauncherCard({ cover, accentClass, glowClass, badge, title, subtitle, count, onClick }) {
+function LauncherCard({ cover, accentClass, badge, title, subtitle, count, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-haspopup="dialog"
-      className={`group relative isolate block w-full overflow-hidden rounded-2xl text-left ring-1 ring-slate-200 dark:ring-slate-800 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl ${glowClass} focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600`}
+      className="group relative isolate block w-full overflow-hidden rounded-2xl text-left ring-1 ring-slate-200 dark:ring-slate-800 transition-all duration-300 hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
     >
       <img
         src={cover}
@@ -27,7 +27,7 @@ function LauncherCard({ cover, accentClass, glowClass, badge, title, subtitle, c
         <h3 className="font-anton text-2xl uppercase leading-none tracking-wide text-white sm:text-3xl">
           {title}
         </h3>
-        <p className="font-code text-xs text-slate-300">{subtitle}</p>
+        <p className="font-code text-xs text-white">{subtitle}</p>
         <span className="mt-3 inline-flex items-center gap-2 font-code text-[11px] font-bold uppercase tracking-wider text-white">
           {count}
           <svg
@@ -55,19 +55,14 @@ function Interests() {
   const [open, setOpen] = useState(null)
 
   return (
-    <section id="interests" className="py-20 sm:py-24 bg-white dark:bg-slate-950 reveal" data-reveal>
+    <section id="interests" className="py-20 sm:py-24 bg-transparent reveal" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="Centres d'intérêt" mark={mark} />
-
-        <p className="mb-8 max-w-prose text-sm text-slate-500 dark:text-slate-400">
-          Deux interfaces à ouvrir pour voir ce que je joue et ce que je regarde.
-        </p>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <LauncherCard
             cover={STEAM_GAMES[0].image}
             accentClass="bg-gradient-to-t from-[#0d1620] via-[#1b2838]/85 to-[#1b2838]/40"
-            glowClass="hover:shadow-[#1b2838]/40"
             badge={<SteamMark className="h-8 w-8 text-[#66c0f4]" />}
             title="Jeux vidéo"
             subtitle="Ouvrir ma bibliothèque Steam"
@@ -78,7 +73,6 @@ function Interests() {
           <LauncherCard
             cover={ADN_ANIMES[0].image}
             accentClass="bg-gradient-to-t from-[#080b18] via-[#0d1226]/85 to-[#0d1226]/40"
-            glowClass="hover:shadow-[#00aaff]/25"
             badge={<AdnMark full className="h-9 w-9" />}
             title="Anime & Manga"
             subtitle="Voir mes séries préférées"

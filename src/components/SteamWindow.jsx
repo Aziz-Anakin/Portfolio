@@ -35,18 +35,18 @@ export default function SteamWindow({ onClose }) {
       >
         {/* Barre de titre */}
         <header className="flex shrink-0 items-center gap-4 border-b border-black/40 bg-[#171a21] px-4 py-2.5">
-          <SteamMark className="h-5 w-5 shrink-0 text-[#c7d5e0]" />
-          <nav className="hidden gap-4 font-code text-[11px] font-bold uppercase tracking-wider text-[#8f98a0] sm:flex">
+          <SteamMark className="h-5 w-5 shrink-0 text-white" />
+          <nav className="hidden gap-4 font-code text-[11px] font-bold uppercase tracking-wider text-white sm:flex">
             <span>Magasin</span>
             <span className="text-white">Bibliothèque</span>
             <span>Communauté</span>
           </nav>
-          <span className="ml-auto hidden font-code text-[11px] text-[#8f98a0] sm:inline">Yanis</span>
+          <span className="ml-auto hidden font-code text-[11px] text-white sm:inline">Yanis</span>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fermer la bibliothèque"
-            className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded text-[#8f98a0] sm:ml-0 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#66c0f4]"
+            className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded text-white sm:ml-0 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#66c0f4]"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -60,14 +60,14 @@ export default function SteamWindow({ onClose }) {
           <aside className="hidden w-60 shrink-0 flex-col border-r border-black/40 md:flex">
             <div className="shrink-0 border-b border-black/30 p-3">
               <div className="flex items-center gap-2 rounded bg-black/25 px-2.5 py-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="shrink-0 text-[#8f98a0]" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="shrink-0 text-white" aria-hidden="true">
                   <circle cx="11" cy="11" r="7" />
                   <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <span className="font-code text-[11px] text-[#8f98a0]">Rechercher</span>
+                <span className="font-code text-[11px] text-white">Rechercher</span>
               </div>
             </div>
-            <p className="shrink-0 px-3 pb-1 pt-3 font-code text-[10px] font-bold uppercase tracking-widest text-[#8f98a0]">
+            <p className="shrink-0 px-3 pb-1 pt-3 font-code text-[10px] font-bold uppercase tracking-widest text-white">
               Jeux ({STEAM_GAMES.length})
             </p>
             <ul className="min-h-0 flex-1 overflow-y-auto pb-2">
@@ -80,7 +80,7 @@ export default function SteamWindow({ onClose }) {
                     className={`flex w-full items-center gap-2.5 px-3 py-1.5 text-left transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#66c0f4] ${
                       i === active
                         ? 'bg-[#2a475e] text-white'
-                        : 'text-[#c7d5e0] hover:bg-white/5 hover:text-white'
+                        : 'text-white hover:bg-white/5 hover:text-white'
                     }`}
                   >
                     <img src={g.image} alt="" loading="lazy" className="h-6 w-10 shrink-0 rounded-sm object-cover" />
@@ -114,12 +114,12 @@ export default function SteamWindow({ onClose }) {
                     </svg>
                     Jouer
                   </span>
-                  <span className="font-code text-[11px] uppercase tracking-wider text-[#8f98a0]">
+                  <span className="font-code text-[11px] uppercase tracking-wider text-white">
                     Installé
                   </span>
                 </div>
 
-                <p className="max-w-prose text-sm leading-relaxed text-[#c7d5e0]">{game.blurb}</p>
+                <p className="max-w-prose text-sm leading-relaxed text-white">{game.blurb}</p>
 
                 <div className="flex flex-wrap gap-1.5">
                   {game.tags.map((tag) => (

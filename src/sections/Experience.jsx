@@ -1,6 +1,9 @@
+import { useMemo } from 'react'
 import SectionHeading from '../components/SectionHeading.jsx'
+import LogoLoop from '../components/LogoLoop.jsx'
 import mark from '../assets/marks/one-piece-4.svg'
 import interfaceLogo from '../assets/images/interface-formation.png'
+import canvaLogo from '../assets/icons/canva.png'
 
 const DEV = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons'
 
@@ -32,105 +35,97 @@ const experiences = [
     description:
       "Maintenance informatique assurée sur le siège social ainsi que sur les différents sites de l'entreprise. Gestion et maintenance du parc informatique (postes utilisateurs, mise à jour de pilotes, périphériques), création de guides d'utilisation sur Canva, assistance technique auprès des utilisateurs et maintenance du site WordPress.",
     skills: [
+      { name: 'Windows', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Windows_logo_-_2021.svg/250px-Windows_logo_-_2021.svg.png' },
+      { name: 'Linux', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/250px-Tux.svg.png' },
+      { name: 'Word', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Microsoft_Office_Word_%282019%E2%80%932025%29.svg/250px-Microsoft_Office_Word_%282019%E2%80%932025%29.svg.png' },
+      { name: 'Excel', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg/250px-Microsoft_Office_Excel_%282019%E2%80%932025%29.svg.png' },
+      { name: 'PowerPoint', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Microsoft_Office_PowerPoint_%282019%E2%80%932025%29.svg/250px-Microsoft_Office_PowerPoint_%282019%E2%80%932025%29.svg.png' },
+      { name: 'Canva', logo: canvaLogo },
       { name: 'WordPress', logo: `${DEV}/wordpress/wordpress-plain.svg` },
     ],
   },
 ]
 
+function SkillItem({ skill }) {
+  return (
+    <span className="group flex flex-col items-center gap-2">
+      <img
+        src={skill.logo}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+        onError={(e) => { e.currentTarget.style.display = 'none' }}
+        className={`h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110 ${skill.invert ? 'invert' : ''}`}
+      />
+      <span className="text-xs font-medium whitespace-nowrap text-white/60">{skill.name}</span>
+    </span>
+  )
+}
+
+function ExperienceStack({ skills }) {
+  const logos = useMemo(() => skills, [skills])
+
+  return (
+    <LogoLoop
+      logos={logos}
+      speed={36}
+      direction="left"
+      logoHeight={32}
+      gap={40}
+      pauseOnHover
+      fadeOut
+      ariaLabel="Stack technique"
+      className="py-2"
+      renderItem={(skill) => <SkillItem skill={skill} />}
+    />
+  )
+}
+
 function Experience() {
   return (
-    <section id="experience" className="py-20 sm:py-24 bg-white dark:bg-slate-950 reveal" data-reveal>
+    <section id="experience" className="py-20 sm:py-24 bg-transparent reveal" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="Expérience" mark={mark} />
 
-        <ol className="max-w-3xl space-y-10">
+        <div className="mx-auto flex max-w-3xl flex-col divide-y divide-white/10">
           {experiences.map((exp) => (
-            <li key={exp.role} className="reveal" data-reveal>
-
-              {/* ── Header : logo + infos ── */}
-              <div className="flex flex-wrap items-center gap-4 mb-4">
-                {exp.logo ? (
-                  <a
-                    href={exp.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={exp.company}
-                    className="shrink-0"
-                  >
-                    <img
-                      src={exp.logo}
-                      alt={exp.company}
-                      className={`h-10 w-auto max-w-[120px] sm:max-w-[140px] object-contain ${exp.darkLogo ? 'invert dark:invert-0' : ''}`}
-                    />
+            <article key={exp.role} className="reveal py-10 first:pt-0 last:pb-0" data-reveal>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="flex min-w-0 items-center gap-4">
+                  <a href={exp.href} target="_blank" rel="noreferrer" aria-label={exp.company} className="flex h-12 w-20 shrink-0 items-center justify-center sm:w-24">
+                    <img src={exp.logo} alt={exp.company} className="max-h-full max-w-full object-contain" />
                   </a>
-                ) : (
-                  <span
-                    aria-hidden="true"
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-base font-bold text-white"
-                  >
-                    {exp.company.charAt(0)}
-                  </span>
-                )}
-
-                <div className="min-w-0 flex-1">
-                  {exp.href ? (
+                  <div className="min-w-0">
                     <a
                       href={exp.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-blue-300 transition-colors hover:text-blue-200"
                     >
                       {exp.company}
-                      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <line x1="7" y1="17" x2="17" y2="7" />
                         <polyline points="7 7 17 7 17 17" />
                       </svg>
                     </a>
-                  ) : (
-                    <span className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">
-                      {exp.company}
-                    </span>
-                  )}
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mt-0.5">
-                    <h3 className="font-code text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white">
-                      {exp.role}
-                    </h3>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                      {exp.duration}
-                    </span>
+                    <h3 className="mt-1 font-anton text-2xl uppercase leading-tight tracking-wide text-white sm:text-3xl">{exp.role}</h3>
                   </div>
                 </div>
+
+                <span className="font-code text-xs font-semibold text-white/50">{exp.duration}</span>
               </div>
 
-              {/* ── Description ── */}
-              <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-                {exp.description}
-              </p>
+              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-white/70">{exp.description}</p>
 
-              {/* ── Skills & Competencies Badges with Logos ── */}
-              {exp.skills && exp.skills.length > 0 && (
-                <div className="flex flex-wrap gap-2.5 mt-4">
-                  {exp.skills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-                    >
-                      {skill.logo && (
-                        <img
-                          src={skill.logo}
-                          alt={skill.name}
-                          className={`w-4 h-4 object-contain shrink-0 ${skill.invert ? 'dark:invert' : ''}`}
-                          onError={(e) => { e.currentTarget.style.display = 'none' }}
-                        />
-                      )}
-                      <span>{skill.name}</span>
-                    </div>
-                  ))}
+              {exp.skills?.length > 0 && (
+                <div className="mt-5">
+                  <ExperienceStack skills={exp.skills} />
                 </div>
               )}
-            </li>
+            </article>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   )

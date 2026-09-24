@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import useShare from '../hooks/useShare'
 import logo from '../assets/images/logo.png'
 import emailLogo from '../assets/icons/email-logo.svg'
@@ -14,50 +13,23 @@ const links = [
   { href: 'https://github.com/Aziz-Anakin', src: githubLogo, label: 'GitHub', external: true },
 ]
 
-const navItems = [
-  { href: '#about',      label: 'À propos' },
-  { href: '#projects',   label: 'Projets' },
-  { href: '#skills',     label: 'Compétences' },
-  { href: '#experience', label: 'Expérience' },
-  { href: '#formation',  label: 'Formation' },
-  { href: '#interests',  label: 'Loisirs' },
-  { href: '#contact',    label: 'Contact' },
-]
+const iconButtonClass =
+  'group flex h-9 w-9 items-center justify-center rounded-lg text-white [perspective:600px] transition-transform duration-300 ease-out hover:-translate-y-1 sm:h-10 sm:w-10'
+const iconImgClass =
+  'h-4 w-4 dark:invert transition-transform duration-300 ease-out group-hover:[transform:rotateX(20deg)_scale(1.15)] sm:h-5 sm:w-5'
+const iconSvgClass =
+  'h-4 w-4 transition-transform duration-300 ease-out group-hover:[transform:rotateX(20deg)_scale(1.15)] sm:h-5 sm:w-5'
 
-function ThemeToggle() {
-  const [dark, setDark] = useState(
-    () => typeof document !== 'undefined' && document.documentElement.classList.contains('dark'),
-  )
-
-  useEffect(() => {
-    const root = document.documentElement
-    if (dark) {
-      root.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      root.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }, [dark])
-
+function QrButton() {
   return (
-    <button
-      type="button"
-      onClick={() => setDark((d) => !d)}
-      aria-label={dark ? 'Activer le mode clair' : 'Activer le mode sombre'}
-      className="w-8 h-8 sm:w-10 sm:h-10 lg:w-8 lg:h-8 flex items-center justify-center rounded-md text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:text-slate-400 dark:hover:text-blue-400 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150"
-    >
-      {dark ? (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-        </svg>
-      ) : (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-      )}
-    </button>
+    <a href={`${import.meta.env.BASE_URL}qr/`} aria-label="QR code du portfolio" title="QR code du portfolio" className={iconButtonClass}>
+      <svg className={iconSvgClass} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3" />
+      </svg>
+    </a>
   )
 }
 
@@ -65,19 +37,13 @@ function ShareButton() {
   const { copied, share } = useShare()
 
   return (
-    <button
-      type="button"
-      onClick={share}
-      aria-label="Partager le portfolio"
-      title={copied ? 'Lien copié !' : 'Partager le portfolio'}
-      className="relative flex items-center justify-center gap-1.5 h-8 sm:h-10 lg:h-8 w-8 sm:w-auto sm:min-w-10 lg:min-w-0 px-0 sm:px-2.5 rounded-md text-sm font-medium text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:text-slate-400 dark:hover:text-blue-400 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150"
-    >
+    <button type="button" onClick={share} aria-label="Partager le portfolio" title={copied ? 'Lien copié !' : 'Partager le portfolio'} className={iconButtonClass}>
       {copied ? (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className={iconSvgClass} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M20 6 9 17l-5-5" />
         </svg>
       ) : (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className={iconSvgClass} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="18" cy="5" r="3" />
           <circle cx="6" cy="12" r="3" />
           <circle cx="18" cy="19" r="3" />
@@ -85,154 +51,42 @@ function ShareButton() {
           <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
         </svg>
       )}
-      <span className="hidden xl:inline">{copied ? 'Lien copié !' : 'Partager'}</span>
     </button>
   )
 }
 
 function Header({ onOpenCv }) {
-  const [open, setOpen] = useState(false)
-
-  // Fermer le menu mobile avec Échap + bloquer le défilement du fond.
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e) => e.key === 'Escape' && setOpen(false)
-    window.addEventListener('keydown', onKey)
-
-    // Le verrou se pose sur <html>, jamais sur <body> : un `overflow:hidden`
-    // sur <body> en fait un conteneur de défilement, le header `sticky` cesse
-    // alors de coller au haut de l'écran et repart en haut du document — le
-    // menu s'ouvrait donc hors champ dès qu'on n'était pas tout en haut.
-    const root = document.documentElement
-    const prevOverflow = root.style.overflow
-    const prevPaddingRight = root.style.paddingRight
-    const scrollbarWidth = window.innerWidth - root.clientWidth
-    root.style.overflow = 'hidden'
-    if (scrollbarWidth > 0) root.style.paddingRight = `${scrollbarWidth}px`
-
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      root.style.overflow = prevOverflow
-      root.style.paddingRight = prevPaddingRight
-    }
-  }, [open])
-
-  // Repasser en desktop (≥ lg) masque le menu : on le referme pour ne pas
-  // laisser le verrou de défilement actif.
-  useEffect(() => {
-    if (!open) return
-    const desktop = window.matchMedia('(min-width: 1024px)')
-    const onChange = (e) => e.matches && setOpen(false)
-    desktop.addEventListener('change', onChange)
-    return () => desktop.removeEventListener('change', onChange)
-  }, [open])
-
   return (
-    <header className="sticky top-0 z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
-      <div className="max-w-content mx-auto px-3 sm:px-8 h-14 flex items-center justify-between gap-3 xl:gap-6">
-
-        {/* Logo One Piece */}
-        <a href="#home" aria-label="Accueil" className="flex-shrink-0">
+    <header className="sticky top-0 z-50">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -bottom-6 -z-10 bg-gradient-to-b from-slate-950 via-slate-950/85 to-transparent"
+      />
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
+        <a href="#home" aria-label="Accueil" className="flex-shrink-0 [perspective:600px]">
           <img
             src={logo}
             alt="Accueil"
-            className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover object-center ring-2 ring-slate-200 dark:ring-slate-700 shadow-sm"
+            className="h-9 w-9 rounded-full object-cover object-center shadow-[0_10px_24px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out hover:-translate-y-1 hover:rotate-[360deg] sm:h-10 sm:w-10"
           />
         </a>
 
-        {/* Nav links — masqués sous lg (→ menu burger) */}
-        <nav className="hidden lg:flex items-center gap-0.5" aria-label="Navigation">
-          {navItems.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              className="px-1.5 xl:px-2 py-1.5 rounded-md text-sm font-medium whitespace-nowrap text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150"
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Raccourcis, bascule de thème et burger */}
-        <div className="flex flex-1 items-center justify-between gap-0.5 sm:flex-none sm:justify-end sm:gap-2">
-          {/* `contents` sous sm : les raccourcis rejoignent la rangée parente
-              pour être répartis avec les autres boutons, sans vide après l'avatar. */}
-          <div className="contents sm:flex sm:items-center sm:gap-2">
-          {links.map(({ href, src, label, external }) => (
+        <div className="flex items-center gap-1 sm:gap-2">
+          {links.map(({ href, src, label, external }) =>
             label === 'CV' ? (
-              <button
-                key={label}
-                type="button"
-                onClick={onOpenCv}
-                aria-label="Voir le CV"
-                title="Consulter le CV"
-                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-8 lg:h-8 flex items-center justify-center rounded-md text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:text-slate-400 dark:hover:text-blue-400 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
-              >
-                <img src={src} alt={label} className="w-4 h-4 dark:invert" />
+              <button key={label} type="button" onClick={onOpenCv} aria-label="Voir le CV" title="Consulter le CV" className={iconButtonClass}>
+                <img src={src} alt={label} className={iconImgClass} />
               </button>
             ) : (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
-                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-8 lg:h-8 flex items-center justify-center rounded-md text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:text-slate-400 dark:hover:text-blue-400 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150"
-              >
-                <img src={src} alt={label} className="w-4 h-4 dark:invert" />
+              <a key={label} href={href} aria-label={label} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})} className={iconButtonClass}>
+                <img src={src} alt={label} className={iconImgClass} />
               </a>
             )
-          ))}
-          </div>
-          <span className="hidden sm:block mx-0.5 xl:mx-1 h-5 w-px bg-slate-200 dark:bg-slate-800" aria-hidden="true" />
+          )}
+          <QrButton />
           <ShareButton />
-          <ThemeToggle />
-
-          {/* Bouton burger — visible uniquement sous lg */}
-          <button
-            type="button"
-            onClick={() => setOpen((o) => !o)}
-            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            className="lg:hidden w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-md text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:text-slate-400 dark:hover:text-blue-400 dark:hover:bg-slate-800 transition-all duration-150"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              {open ? (
-                <path d="M18 6 6 18M6 6l12 12" />
-              ) : (
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              )}
-            </svg>
-          </button>
         </div>
       </div>
-
-      {/* Menu mobile / tablette */}
-      {open && (
-        <nav
-          id="mobile-nav"
-          aria-label="Navigation mobile"
-          className="lg:hidden max-h-[calc(100dvh-3.5rem)] overflow-y-auto overscroll-contain border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 animate-fade-in"
-        >
-          <ul className="max-w-content mx-auto px-5 sm:px-8 py-1 divide-y divide-slate-100 dark:divide-slate-800">
-            {navItems.map(({ href, label }) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-between gap-3 py-3.5 pl-1 text-[15px] font-medium text-slate-700 dark:text-slate-200 hover:pl-3 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-150"
-                >
-                  <span>{label}</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="text-slate-300 dark:text-slate-600">
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </a>
-              </li>
-            ))}
-          </ul>
-
-        </nav>
-      )}
     </header>
   )
 }

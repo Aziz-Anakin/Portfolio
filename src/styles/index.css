@@ -16,6 +16,20 @@
     scroll-behavior: smooth;
   }
 
+  /* ── Couleurs des titres en relief (DepthText) ── */
+  :root {
+    --depth-face: #0f172a;
+    --depth-back: #2563eb;
+    --depth-name-face: #2563eb;
+    --depth-name-back: #0f172a;
+  }
+  .dark {
+    --depth-face: #f8fafc;
+    --depth-back: #3b82f6;
+    --depth-name-face: #60a5fa;
+    --depth-name-back: #4338ca;
+  }
+
   /* Garde-fou: un element trop large elargissait la fenetre de mise en page,
      et le mobile se retrouvait dezoome au point d'etre illisible. */
   html,
@@ -50,7 +64,7 @@
     50%       { background-position: 0% 100%; }
   }
   body {
-    @apply font-mono text-slate-900 bg-white antialiased dark:bg-slate-950 dark:text-slate-100;
+    @apply font-mono text-slate-900 bg-white antialiased dark:bg-slate-950 dark:text-white;
   }
   /* Scroll reveal */
   .reveal {
@@ -73,20 +87,6 @@
     }
   }
 
-  /* ── Ombre réaliste sur les titres de section ── */
-  .heading-shadow {
-    text-shadow:
-      1px 2px 0px rgba(0,0,0,0.08),
-      2px 4px 8px rgba(0,0,0,0.12),
-      4px 12px 28px rgba(0,0,0,0.07);
-  }
-  .dark .heading-shadow {
-    text-shadow:
-      0 2px 12px rgba(99,102,241,0.35),
-      0 4px 32px rgba(59,130,246,0.2),
-      0 0 60px rgba(99,102,241,0.1);
-  }
-
   /* ── Bande d'aperçus : défilement tactile sans barre visible ── */
   .no-scrollbar {
     -ms-overflow-style: none;
@@ -96,31 +96,4 @@
     display: none;
   }
 
-  /* ── Glow logo compétences au hover ── */
-  .skill-logo:hover {
-    filter: drop-shadow(0 0 8px rgba(59,130,246,0.6));
-  }
-  .dark .skill-logo:hover {
-    filter: drop-shadow(0 0 10px rgba(99,102,241,0.7));
-  }
-
-  /* ── Texte à dégradé animé (clair + sombre) ── */
-  .gradient-text {
-    background-image: linear-gradient(90deg, #2563eb, #6366f1, #8b5cf6, #2563eb);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    animation: gradient-flow 7s linear infinite;
-  }
-  .dark .gradient-text {
-    background-image: linear-gradient(90deg, #60a5fa, #818cf8, #a78bfa, #60a5fa);
-  }
-  @keyframes gradient-flow {
-    to { background-position: 200% center; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .gradient-text { animation: none; }
-  }
 }
