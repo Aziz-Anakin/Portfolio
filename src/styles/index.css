@@ -96,11 +96,4 @@
     display: none;
   }
 
-  /* ── Glow logo compétences au hover ── */
-  .skill-logo:hover {
-    filter: drop-shadow(0 0 8px rgba(59,130,246,0.6));
-  }
-  .dark .skill-logo:hover {
-    filter: drop-shadow(0 0 10px rgba(99,102,241,0.7));
-  }
 }

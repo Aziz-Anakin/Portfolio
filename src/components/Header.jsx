@@ -1,6 +1,4 @@
 import useShare from '../hooks/useShare'
-import SectionIndicator from './SectionIndicator.jsx'
-import ScrollProgress from './ScrollProgress.jsx'
 import logo from '../assets/images/logo.png'
 import emailLogo from '../assets/icons/email-logo.svg'
 import cvLogo from '../assets/icons/cv-logo.svg'
@@ -15,23 +13,37 @@ const links = [
   { href: 'https://github.com/Aziz-Anakin', src: githubLogo, label: 'GitHub', external: true },
 ]
 
+const iconButtonClass =
+  'group flex h-9 w-9 items-center justify-center rounded-lg text-white [perspective:600px] transition-transform duration-300 ease-out hover:-translate-y-1 sm:h-10 sm:w-10'
+const iconImgClass =
+  'h-4 w-4 dark:invert transition-transform duration-300 ease-out group-hover:[transform:rotateX(20deg)_scale(1.15)] sm:h-5 sm:w-5'
+const iconSvgClass =
+  'h-4 w-4 transition-transform duration-300 ease-out group-hover:[transform:rotateX(20deg)_scale(1.15)] sm:h-5 sm:w-5'
+
+function QrButton() {
+  return (
+    <a href={`${import.meta.env.BASE_URL}qr/`} aria-label="QR code du portfolio" title="QR code du portfolio" className={iconButtonClass}>
+      <svg className={iconSvgClass} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3" />
+      </svg>
+    </a>
+  )
+}
+
 function ShareButton() {
   const { copied, share } = useShare()
 
   return (
-    <button
-      type="button"
-      onClick={share}
-      aria-label="Partager le portfolio"
-      title={copied ? 'Lien copié !' : 'Partager le portfolio'}
-      className="relative flex items-center justify-center gap-1.5 h-8 sm:h-10 lg:h-8 w-8 sm:w-auto sm:min-w-10 lg:min-w-0 px-0 sm:px-2.5 rounded-md text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:text-white dark:hover:text-blue-400 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150"
-    >
+    <button type="button" onClick={share} aria-label="Partager le portfolio" title={copied ? 'Lien copié !' : 'Partager le portfolio'} className={iconButtonClass}>
       {copied ? (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className={iconSvgClass} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M20 6 9 17l-5-5" />
         </svg>
       ) : (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg className={iconSvgClass} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="18" cy="5" r="3" />
           <circle cx="6" cy="12" r="3" />
           <circle cx="18" cy="19" r="3" />
@@ -39,62 +51,41 @@ function ShareButton() {
           <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
         </svg>
       )}
-      <span className="hidden xl:inline">{copied ? 'Lien copié !' : 'Partager'}</span>
     </button>
   )
 }
 
 function Header({ onOpenCv }) {
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6">
-      <div className="relative mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 rounded-2xl border border-white/10 bg-slate-900/70 px-2.5 shadow-lg shadow-black/30 backdrop-blur-xl sm:px-3 md:grid md:h-16 md:grid-cols-[1fr_auto_1fr] md:px-4">
-
-        {/* Logo One Piece */}
-        <a href="#home" aria-label="Accueil" className="flex-shrink-0 md:justify-self-start">
+    <header className="sticky top-0 z-50">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -bottom-6 -z-10 bg-gradient-to-b from-slate-950 via-slate-950/85 to-transparent"
+      />
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
+        <a href="#home" aria-label="Accueil" className="flex-shrink-0 [perspective:600px]">
           <img
             src={logo}
             alt="Accueil"
-            className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover object-center ring-2 ring-slate-200 dark:ring-slate-700 shadow-sm transition-transform duration-500 hover:rotate-[360deg]"
+            className="h-9 w-9 rounded-full object-cover object-center shadow-[0_10px_24px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out hover:-translate-y-1 hover:rotate-[360deg] sm:h-10 sm:w-10"
           />
         </a>
 
-        {/* Section en cours (PC) */}
-        <SectionIndicator className="hidden md:flex" />
-
-        {/* Raccourcis */}
-        <div className="flex flex-1 items-center justify-between gap-0.5 sm:flex-none sm:justify-end sm:gap-2 md:justify-self-end">
-          {/* `contents` sous sm : les raccourcis rejoignent la rangée parente
-              pour être répartis avec les autres boutons, sans vide après l'avatar. */}
-          <div className="contents sm:flex sm:items-center sm:gap-2">
-          {links.map(({ href, src, label, external }) => (
+        <div className="flex items-center gap-1 sm:gap-2">
+          {links.map(({ href, src, label, external }) =>
             label === 'CV' ? (
-              <button
-                key={label}
-                type="button"
-                onClick={onOpenCv}
-                aria-label="Voir le CV"
-                title="Consulter le CV"
-                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-8 lg:h-8 flex items-center justify-center rounded-md text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:text-white dark:hover:text-blue-400 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
-              >
-                <img src={src} alt={label} className="w-4 h-4 dark:invert" />
+              <button key={label} type="button" onClick={onOpenCv} aria-label="Voir le CV" title="Consulter le CV" className={iconButtonClass}>
+                <img src={src} alt={label} className={iconImgClass} />
               </button>
             ) : (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
-                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-8 lg:h-8 flex items-center justify-center rounded-md text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:text-white dark:hover:text-blue-400 dark:hover:bg-slate-800 hover:shadow-md hover:shadow-slate-900/15 dark:hover:shadow-white/15 hover:-translate-y-0.5 transition-all duration-150"
-              >
-                <img src={src} alt={label} className="w-4 h-4 dark:invert" />
+              <a key={label} href={href} aria-label={label} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})} className={iconButtonClass}>
+                <img src={src} alt={label} className={iconImgClass} />
               </a>
             )
-          ))}
-          </div>
-          <span className="hidden sm:block mx-0.5 xl:mx-1 h-5 w-px bg-slate-200 dark:bg-slate-800" aria-hidden="true" />
+          )}
+          <QrButton />
           <ShareButton />
         </div>
-        <ScrollProgress className="absolute inset-x-4 bottom-0" />
       </div>
     </header>
   )

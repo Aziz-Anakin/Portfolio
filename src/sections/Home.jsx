@@ -43,14 +43,9 @@ function Home({ onOpenCv }) {
               📍 Paris, Île-de-France — 18ème
             </p>
 
-            <div className="mt-5 reveal revealDelay2" data-reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-1 text-xs font-semibold dark:border-blue-500/30 dark:bg-blue-500/10">
-                <span className="relative flex h-2 w-2" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                </span>
-                <ShinyText text="Disponible · stage avril – juillet 2027" color="#3b82f6" shineColor="#a78bfa" speed={3} delay={1} />
-              </span>
+            <div className="mt-5 flex items-center gap-2 reveal revealDelay2" data-reveal>
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500 dark:bg-blue-400" aria-hidden="true" />
+              <ShinyText text="Disponible · stage avril – juillet 2027" color="#3b82f6" shineColor="#a78bfa" speed={3} delay={1} />
             </div>
 
             <p className="mt-3 text-sm text-slate-600 dark:text-white font-medium reveal revealDelay2" data-reveal>
@@ -60,20 +55,20 @@ function Home({ onOpenCv }) {
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-8 reveal revealDelay3" data-reveal>
               <a
                 href="#projects"
-                className="px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg shadow-slate-900/25 dark:shadow-white/10 hover:bg-blue-700 hover:shadow-xl hover:-translate-y-0.5 dark:hover:shadow-white/25 transition-all duration-200"
+                className="px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-200"
               >
                 Voir mes projets
               </a>
               <a
                 href="#contact"
-                className="px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-white text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 shadow-md shadow-slate-900/15 dark:shadow-white/5 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:-translate-y-0.5 dark:hover:shadow-white/20 transition-all duration-200"
+                className="px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-white text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-0.5 transition-all duration-200"
               >
                 Me contacter
               </a>
               <button
                 type="button"
                 onClick={onOpenCv}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-white text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 shadow-md shadow-slate-900/15 dark:shadow-white/5 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:-translate-y-0.5 dark:hover:shadow-white/20 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-white text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>

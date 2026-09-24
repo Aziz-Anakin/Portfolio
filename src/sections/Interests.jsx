@@ -6,13 +6,13 @@ import { STEAM_GAMES, ADN_ANIMES } from '../data/interests'
 import mark from '../assets/marks/one-piece-1.svg'
 
 // Vignette de lancement : image de fond assombrie, logo, intitulé et compte.
-function LauncherCard({ cover, accentClass, glowClass, badge, title, subtitle, count, onClick }) {
+function LauncherCard({ cover, accentClass, badge, title, subtitle, count, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-haspopup="dialog"
-      className={`group relative isolate block w-full overflow-hidden rounded-2xl text-left ring-1 ring-slate-200 dark:ring-slate-800 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl ${glowClass} focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600`}
+      className="group relative isolate block w-full overflow-hidden rounded-2xl text-left ring-1 ring-slate-200 dark:ring-slate-800 transition-all duration-300 hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
     >
       <img
         src={cover}
@@ -63,7 +63,6 @@ function Interests() {
           <LauncherCard
             cover={STEAM_GAMES[0].image}
             accentClass="bg-gradient-to-t from-[#0d1620] via-[#1b2838]/85 to-[#1b2838]/40"
-            glowClass="hover:shadow-[#1b2838]/40"
             badge={<SteamMark className="h-8 w-8 text-[#66c0f4]" />}
             title="Jeux vidéo"
             subtitle="Ouvrir ma bibliothèque Steam"
@@ -74,7 +73,6 @@ function Interests() {
           <LauncherCard
             cover={ADN_ANIMES[0].image}
             accentClass="bg-gradient-to-t from-[#080b18] via-[#0d1226]/85 to-[#0d1226]/40"
-            glowClass="hover:shadow-[#00aaff]/25"
             badge={<AdnMark full className="h-9 w-9" />}
             title="Anime & Manga"
             subtitle="Voir mes séries préférées"

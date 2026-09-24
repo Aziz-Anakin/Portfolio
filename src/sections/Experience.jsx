@@ -1,9 +1,9 @@
-import { useRef } from 'react'
-import { motion, useScroll, useSpring } from 'motion/react'
+import { useMemo } from 'react'
 import SectionHeading from '../components/SectionHeading.jsx'
-import SpotlightCard from '../components/SpotlightCard.jsx'
+import LogoLoop from '../components/LogoLoop.jsx'
 import mark from '../assets/marks/one-piece-4.svg'
 import interfaceLogo from '../assets/images/interface-formation.png'
+import canvaLogo from '../assets/icons/canva.png'
 
 const DEV = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons'
 
@@ -35,107 +35,97 @@ const experiences = [
     description:
       "Maintenance informatique assurée sur le siège social ainsi que sur les différents sites de l'entreprise. Gestion et maintenance du parc informatique (postes utilisateurs, mise à jour de pilotes, périphériques), création de guides d'utilisation sur Canva, assistance technique auprès des utilisateurs et maintenance du site WordPress.",
     skills: [
+      { name: 'Windows', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Windows_logo_-_2021.svg/250px-Windows_logo_-_2021.svg.png' },
+      { name: 'Linux', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/250px-Tux.svg.png' },
+      { name: 'Word', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Microsoft_Office_Word_%282019%E2%80%932025%29.svg/250px-Microsoft_Office_Word_%282019%E2%80%932025%29.svg.png' },
+      { name: 'Excel', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg/250px-Microsoft_Office_Excel_%282019%E2%80%932025%29.svg.png' },
+      { name: 'PowerPoint', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Microsoft_Office_PowerPoint_%282019%E2%80%932025%29.svg/250px-Microsoft_Office_PowerPoint_%282019%E2%80%932025%29.svg.png' },
+      { name: 'Canva', logo: canvaLogo },
       { name: 'WordPress', logo: `${DEV}/wordpress/wordpress-plain.svg` },
     ],
   },
 ]
 
-const pad = (n) => String(n).padStart(2, '0')
+function SkillItem({ skill }) {
+  return (
+    <span className="group flex flex-col items-center gap-2">
+      <img
+        src={skill.logo}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+        onError={(e) => { e.currentTarget.style.display = 'none' }}
+        className={`h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110 ${skill.invert ? 'invert' : ''}`}
+      />
+      <span className="text-xs font-medium whitespace-nowrap text-white/60">{skill.name}</span>
+    </span>
+  )
+}
 
-// Frise chronologique : la ligne se remplit au fil du défilement,
-// chaque étape s'allume quand la ligne l'atteint.
+function ExperienceStack({ skills }) {
+  const logos = useMemo(() => skills, [skills])
+
+  return (
+    <LogoLoop
+      logos={logos}
+      speed={36}
+      direction="left"
+      logoHeight={32}
+      gap={40}
+      pauseOnHover
+      fadeOut
+      ariaLabel="Stack technique"
+      className="py-2"
+      renderItem={(skill) => <SkillItem skill={skill} />}
+    />
+  )
+}
+
 function Experience() {
-  const listRef = useRef(null)
-  const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 75%', 'end 55%'] })
-  const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 })
-
   return (
     <section id="experience" className="py-20 sm:py-24 bg-transparent reveal" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="Expérience" mark={mark} />
 
-        <ol ref={listRef} className="relative max-w-4xl space-y-8 pl-12 sm:pl-16">
-          {/* Rail + remplissage lié au défilement */}
-          <span aria-hidden="true" className="absolute bottom-3 left-[15px] top-3 w-0.5 rounded-full bg-white/10 sm:left-[23px]" />
-          <motion.span
-            aria-hidden="true"
-            style={{ scaleY: fill }}
-            className="absolute bottom-3 left-[15px] top-3 w-0.5 origin-top rounded-full bg-gradient-to-b from-blue-500 via-indigo-500 to-violet-500 shadow-[0_0_12px_rgba(99,102,241,0.8)] sm:left-[23px]"
-          />
-
-          {experiences.map((exp, i) => (
-            <li key={exp.role} className="relative reveal" data-reveal>
-              {/* Étape */}
-              <span
-                aria-hidden="true"
-                className="absolute -left-12 top-6 flex h-8 w-8 items-center justify-center rounded-full border border-blue-400/50 bg-slate-950 font-code text-[10px] font-bold text-blue-300 shadow-[0_0_18px_rgba(59,130,246,0.45)] sm:-left-16 sm:h-12 sm:w-12 sm:text-xs"
-              >
-                {pad(i + 1)}
-              </span>
-
-              <SpotlightCard spotlightColor="rgba(96, 165, 250, 0.16)" className="group p-5 transition-transform duration-300 hover:-translate-y-1 sm:p-7">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div className="flex min-w-0 items-center gap-4">
+        <div className="mx-auto flex max-w-3xl flex-col divide-y divide-white/10">
+          {experiences.map((exp) => (
+            <article key={exp.role} className="reveal py-10 first:pt-0 last:pb-0" data-reveal>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="flex min-w-0 items-center gap-4">
+                  <a href={exp.href} target="_blank" rel="noreferrer" aria-label={exp.company} className="flex h-12 w-20 shrink-0 items-center justify-center sm:w-24">
+                    <img src={exp.logo} alt={exp.company} className="max-h-full max-w-full object-contain" />
+                  </a>
+                  <div className="min-w-0">
                     <a
                       href={exp.href}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={exp.company}
-                      className="flex h-14 w-24 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 p-2 transition-colors hover:border-blue-400/50 sm:w-32"
+                      className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-blue-300 transition-colors hover:text-blue-200"
                     >
-                      <img src={exp.logo} alt={exp.company} className="max-h-full max-w-full object-contain" />
+                      {exp.company}
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                      </svg>
                     </a>
-                    <div className="min-w-0">
-                      <a
-                        href={exp.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-blue-300 transition-colors hover:text-blue-200"
-                      >
-                        {exp.company}
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <line x1="7" y1="17" x2="17" y2="7" />
-                          <polyline points="7 7 17 7 17 17" />
-                        </svg>
-                      </a>
-                      <h3 className="mt-1 font-anton text-2xl uppercase leading-tight tracking-wide text-white sm:text-3xl">{exp.role}</h3>
-                    </div>
+                    <h3 className="mt-1 font-anton text-2xl uppercase leading-tight tracking-wide text-white sm:text-3xl">{exp.role}</h3>
                   </div>
-
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-code text-xs font-bold text-white">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                    {exp.duration}
-                  </span>
                 </div>
 
-                <p className="mt-5 text-sm leading-relaxed text-white">{exp.description}</p>
+                <span className="font-code text-xs font-semibold text-white/50">{exp.duration}</span>
+              </div>
 
-                {exp.skills?.length > 0 && (
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {exp.skills.map((skill) => (
-                      <span
-                        key={skill.name}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-400/60"
-                      >
-                        <img
-                          src={skill.logo}
-                          alt=""
-                          aria-hidden="true"
-                          className={`h-4 w-4 shrink-0 object-contain ${skill.invert ? 'invert' : ''}`}
-                          onError={(e) => { e.currentTarget.style.display = 'none' }}
-                        />
-                        {skill.name}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </SpotlightCard>
-            </li>
+              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-white/70">{exp.description}</p>
+
+              {exp.skills?.length > 0 && (
+                <div className="mt-5">
+                  <ExperienceStack skills={exp.skills} />
+                </div>
+              )}
+            </article>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   )

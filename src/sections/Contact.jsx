@@ -1,5 +1,5 @@
 import SectionHeading from '../components/SectionHeading.jsx'
-import IdCard from '../components/IdCard.jsx'
+import BusinessCard from '../components/BusinessCard.jsx'
 import mark from '../assets/marks/one-piece-6.svg'
 
 function Contact({ onOpenCv }) {
@@ -8,7 +8,7 @@ function Contact({ onOpenCv }) {
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="Contact" mark={mark} />
 
-        <IdCard onOpenCv={onOpenCv} />
+        <BusinessCard onOpenCv={onOpenCv} />
       </div>
     </section>
   )
