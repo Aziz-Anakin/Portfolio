@@ -27,7 +27,7 @@ function LauncherCard({ cover, accentClass, glowClass, badge, title, subtitle, c
         <h3 className="font-anton text-2xl uppercase leading-none tracking-wide text-white sm:text-3xl">
           {title}
         </h3>
-        <p className="font-code text-xs text-slate-300">{subtitle}</p>
+        <p className="font-code text-xs text-white">{subtitle}</p>
         <span className="mt-3 inline-flex items-center gap-2 font-code text-[11px] font-bold uppercase tracking-wider text-white">
           {count}
           <svg
@@ -55,13 +55,9 @@ function Interests() {
   const [open, setOpen] = useState(null)
 
   return (
-    <section id="interests" className="py-20 sm:py-24 bg-white dark:bg-slate-950 reveal" data-reveal>
+    <section id="interests" className="py-20 sm:py-24 bg-transparent reveal" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="Centres d'intérêt" mark={mark} />
-
-        <p className="mb-8 max-w-prose text-sm text-slate-500 dark:text-slate-400">
-          Deux interfaces à ouvrir pour voir ce que je joue et ce que je regarde.
-        </p>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <LauncherCard

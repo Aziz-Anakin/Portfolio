@@ -1,22 +1,33 @@
 import photo from '../assets/images/photo.jpg'
+import DepthText, { DepthImage } from '../components/DepthText.jsx'
+import ShinyText from '../components/ShinyText.jsx'
 
 function Home({ onOpenCv }) {
   return (
-    <section id="home" className="min-h-[calc(100dvh-3.5rem)] flex items-center py-16 sm:py-20 bg-transparent reveal" data-reveal>
+    <section id="home" className="relative min-h-[calc(100dvh-4.75rem)] flex items-center py-16 sm:py-20 bg-transparent reveal" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8 w-full">
         <div className="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16">
 
           {/* ── Text ── */}
           <div className="flex-1 text-center md:text-left">
-            <h1 className="gradient-text font-anton text-5xl sm:text-6xl lg:text-7xl uppercase tracking-wide leading-none">
-              Mdoughy Yanis
-            </h1>
+            <div>
+              <DepthText
+                text="Mdoughy Yanis"
+                as="h1"
+                layers={30}
+                depth={2.2}
+                faceColor="var(--depth-name-face)"
+                depthColor="var(--depth-name-back)"
+                fontSize="clamp(3rem, 9vw, 4.5rem)"
+                className="font-anton uppercase"
+              />
+            </div>
 
             <a
               href="https://www.epitech.eu/ecole-informatique-paris/"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-10 items-center gap-2.5 mt-5 text-base font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors reveal revealDelay2"
+              className="inline-flex min-h-10 items-center gap-2.5 mt-5 text-base font-semibold text-slate-600 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors reveal revealDelay2"
               data-reveal
             >
               <img
@@ -28,12 +39,22 @@ function Home({ onOpenCv }) {
               Epitech Paris
             </a>
 
-            <p className="mt-3 text-sm text-slate-400 font-medium reveal revealDelay2" data-reveal>
+            <p className="mt-3 text-sm text-slate-600 dark:text-white font-medium reveal revealDelay2" data-reveal>
               📍 Paris, Île-de-France — 18ème
             </p>
 
-            <p className="mt-2 text-sm text-slate-400 font-medium reveal revealDelay2" data-reveal>
-              À la recherche d'un stage de 4 mois en développement Web / Full Stack pour avril–juillet 2027. Disponible pour relever de nouveaux défis au sein d'une équipe tech.
+            <div className="mt-5 reveal revealDelay2" data-reveal>
+              <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-1 text-xs font-semibold dark:border-blue-500/30 dark:bg-blue-500/10">
+                <span className="relative flex h-2 w-2" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                <ShinyText text="Disponible · stage avril – juillet 2027" color="#3b82f6" shineColor="#a78bfa" speed={3} delay={1} />
+              </span>
+            </div>
+
+            <p className="mt-3 text-sm text-slate-600 dark:text-white font-medium reveal revealDelay2" data-reveal>
+              À la recherche d'un stage de 4 mois en développement Web / Full Stack. Disponible pour relever de nouveaux défis au sein d'une équipe tech.
             </p>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-8 reveal revealDelay3" data-reveal>
@@ -45,14 +66,14 @@ function Home({ onOpenCv }) {
               </a>
               <a
                 href="#contact"
-                className="px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 shadow-md shadow-slate-900/15 dark:shadow-white/5 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:-translate-y-0.5 dark:hover:shadow-white/20 transition-all duration-200"
+                className="px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-white text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 shadow-md shadow-slate-900/15 dark:shadow-white/5 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:-translate-y-0.5 dark:hover:shadow-white/20 transition-all duration-200"
               >
                 Me contacter
               </a>
               <button
                 type="button"
                 onClick={onOpenCv}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 shadow-md shadow-slate-900/15 dark:shadow-white/5 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:-translate-y-0.5 dark:hover:shadow-white/20 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-white text-sm font-semibold rounded-lg border border-slate-200 dark:border-slate-800 shadow-md shadow-slate-900/15 dark:shadow-white/5 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:-translate-y-0.5 dark:hover:shadow-white/20 transition-all duration-200 cursor-pointer"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -70,20 +91,20 @@ function Home({ onOpenCv }) {
           <div className="flex-shrink-0 reveal revealDelay2 group" data-reveal>
             <div className="relative">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/20 via-indigo-500/15 to-slate-900/20 blur-3xl scale-75 opacity-60 group-hover:scale-110 group-hover:opacity-90 transition-all duration-700 ease-out -z-10" />
-              <img
+              <DepthImage
                 src={photo}
                 alt="Photo de profil Yanis Mdoughy"
-                className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full object-cover object-top
-                           shadow-[0_20px_60px_rgba(0,0,0,0.35)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)]
-                           transition-all duration-500 ease-out
-                           group-hover:scale-[1.04] group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.45),0_0_60px_rgba(59,130,246,0.2)]
-                           group-hover:brightness-105 cursor-pointer"
+                faceColor="var(--depth-name-face)"
+                depthColor="var(--depth-name-back)"
+                phase={Math.PI}
+                imgClassName="w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 object-top"
               />
             </div>
           </div>
 
         </div>
       </div>
+
     </section>
   )
 }

@@ -38,6 +38,8 @@ export default {
         'content': '1100px',
       },
       animation: {
+        'star-movement-bottom': 'star-movement-bottom linear infinite alternate',
+        'star-movement-top': 'star-movement-top linear infinite alternate',
         'fade-up': 'fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards',
         float: 'float 3s ease-in-out infinite',
         'float-slow': 'float 4.5s ease-in-out infinite',
@@ -45,6 +47,14 @@ export default {
         'zoom-in': 'zoomIn 0.25s cubic-bezier(0.16,1,0.3,1)',
       },
       keyframes: {
+        'star-movement-bottom': {
+          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
+          '100%': { transform: 'translate(-100%, 0%)', opacity: '0' },
+        },
+        'star-movement-top': {
+          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
+          '100%': { transform: 'translate(100%, 0%)', opacity: '0' },
+        },
         fadeUp: {
           '0%':   { opacity: '0', transform: 'translateY(24px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },

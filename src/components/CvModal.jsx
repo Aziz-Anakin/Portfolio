@@ -35,7 +35,7 @@ function CvModal({ isOpen, onClose }) {
   }
 
   const action = 'flex h-9 items-center justify-center gap-1.5 rounded-lg px-2.5 text-sm font-medium ' +
-    'text-slate-600 hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800 ' +
+    'text-slate-600 hover:bg-slate-100 hover:text-blue-600 dark:text-white dark:hover:bg-slate-800 ' +
     'dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500'
 
   return createPortal(
@@ -62,7 +62,7 @@ function CvModal({ isOpen, onClose }) {
         <div className="flex shrink-0 items-center justify-between gap-2 border-b border-slate-100 px-3 py-2 dark:border-slate-800">
           <p className="flex min-w-0 items-baseline gap-2 truncate">
             <span className="font-code text-sm font-bold text-slate-900 dark:text-white">CV</span>
-            <span className="truncate text-xs text-slate-400 dark:text-slate-500">Yanis Mdoughy</span>
+            <span className="truncate text-xs text-slate-600 dark:text-white">Yanis Mdoughy</span>
           </p>
 
           <div className="flex shrink-0 items-center gap-0.5">
@@ -107,7 +107,7 @@ function CvModal({ isOpen, onClose }) {
               onClick={onClose}
               aria-label="Fermer le CV"
               title="Fermer (Échap)"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-red-50 hover:text-red-600 dark:text-slate-400 dark:hover:bg-red-950/50 dark:hover:text-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-red-50 hover:text-red-600 dark:text-white dark:hover:bg-red-950/50 dark:hover:text-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M18 6 6 18M6 6l12 12" />
@@ -124,7 +124,7 @@ function CvModal({ isOpen, onClose }) {
           }`}
         >
           {!loaded && (
-            <p className="absolute inset-x-0 top-1/2 text-center font-code text-xs text-slate-400">
+            <p className="absolute inset-x-0 top-1/2 text-center font-code text-xs text-slate-600 dark:text-white">
               Chargement du CV…
             </p>
           )}
@@ -140,12 +140,6 @@ function CvModal({ isOpen, onClose }) {
             }
           />
         </div>
-
-        {/* Aide */}
-        <p className="shrink-0 border-t border-slate-100 px-3 py-1.5 text-center font-code text-[11px] text-slate-400 dark:border-slate-800 dark:text-slate-500">
-          <span className="sm:hidden">Toucher la page pour {zoomed ? 'la réduire' : 'l’agrandir'}</span>
-          <span className="hidden sm:inline">Cliquer sur la page pour {zoomed ? 'la réduire' : 'l’agrandir'} · Échap pour fermer</span>
-        </p>
       </div>
     </div>,
     document.body,

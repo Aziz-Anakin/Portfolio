@@ -34,7 +34,7 @@ function SkillItem({ skill }) {
           skill.invert ? 'dark:invert' : ''
         }`}
       />
-      <span className="text-xs font-medium whitespace-nowrap text-slate-500 dark:text-slate-400">
+      <span className="text-xs font-medium whitespace-nowrap text-slate-600 dark:text-white">
         {skill.name}
       </span>
     </a>
@@ -47,7 +47,7 @@ function SkillsRow({ label, items, direction }) {
 
   return (
     <div>
-      <p className="mb-4 text-xs font-semibold tracking-[0.2em] text-slate-400 uppercase dark:text-slate-500">
+      <p className="mb-4 text-xs font-semibold tracking-[0.2em] text-slate-600 uppercase dark:text-white">
         {label}
       </p>
       <LogoLoop
@@ -68,7 +68,7 @@ function SkillsRow({ label, items, direction }) {
 
 function Skills() {
   return (
-    <section id="skills" className="reveal bg-white py-20 sm:py-24 dark:bg-slate-950" data-reveal>
+    <section id="skills" className="reveal bg-transparent py-20 sm:py-24" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="Compétences" mark={mark} />
 

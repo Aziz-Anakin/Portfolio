@@ -5,6 +5,7 @@ import ClickSpark from '../components/ClickSpark.jsx'
 import Squares from '../components/Squares.jsx'
 import TiltedCard from '../components/TiltedCard.jsx'
 import TextType from '../components/TextType.jsx'
+import DepthText from '../components/DepthText.jsx'
 import useShare from '../hooks/useShare.js'
 
 // Adresse publique du portfolio (GitHub Pages) encodée dans le QR code.
@@ -47,7 +48,6 @@ const QrImage = ({ src }) => (
 function QrPage() {
   const [front, setFront] = useState('')
   const [depth, setDepth] = useState('')
-  const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
   const [size, setSize] = useState(() => Math.min(340, window.innerWidth - 48))
   const { copied, share } = useShare({
     url: PORTFOLIO_URL,
@@ -62,51 +62,19 @@ function QrPage() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  // Même bascule que sur le portfolio : classe `dark` sur <html> + préférence en mémoire.
-  useEffect(() => {
-    const root = document.documentElement
-    if (dark) {
-      root.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      root.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }, [dark])
-
   return (
     <ClickSpark sparkColor="#6366f1" sparkCount={10} sparkRadius={24}>
-      <div className="relative min-h-[100dvh] overflow-hidden bg-white text-slate-900 font-mono dark:bg-slate-950 dark:text-slate-100">
+      <div className="relative min-h-[100dvh] overflow-hidden bg-white text-slate-900 font-mono dark:bg-slate-950 dark:text-white">
         {/* Fond animé React Bits « Squares » */}
         <div className="absolute inset-0">
           <Squares
             direction="diagonal"
             speed={0.35}
             squareSize={44}
-            borderColor={dark ? 'rgba(129, 140, 248, 0.16)' : 'rgba(99, 102, 241, 0.16)'}
-            hoverFillColor={dark ? 'rgba(96, 165, 250, 0.18)' : 'rgba(37, 99, 235, 0.14)'}
+            borderColor="rgba(129, 140, 248, 0.16)"
+            hoverFillColor="rgba(96, 165, 250, 0.18)"
           />
         </div>
-
-        {/* Bascule clair / sombre, discrète en haut à gauche */}
-        <button
-          type="button"
-          onClick={() => setDark((d) => !d)}
-          aria-label={dark ? 'Activer le mode clair' : 'Activer le mode sombre'}
-          title={dark ? 'Activer le mode clair' : 'Activer le mode sombre'}
-          className="fixed top-4 left-4 sm:top-6 sm:left-6 z-20 flex h-9 w-9 items-center justify-center rounded-full text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:text-slate-500 dark:hover:text-blue-400 dark:hover:bg-slate-800/60 active:scale-90 transition-all duration-150 [-webkit-tap-highlight-color:transparent]"
-        >
-          {dark ? (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-            </svg>
-          ) : (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          )}
-        </button>
 
         {/* Partage natif (iPhone / Android / PC), discret en haut à droite */}
         <button
@@ -114,7 +82,7 @@ function QrPage() {
           onClick={share}
           aria-label={copied ? 'Lien copié !' : 'Partager le portfolio'}
           title={copied ? 'Lien copié !' : 'Partager le portfolio'}
-          className="fixed top-4 right-4 sm:top-6 sm:right-6 z-20 flex h-9 w-9 items-center justify-center rounded-full text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:text-slate-500 dark:hover:text-blue-400 dark:hover:bg-slate-800/60 active:scale-90 transition-all duration-150 [-webkit-tap-highlight-color:transparent]"
+          className="fixed top-4 right-4 sm:top-6 sm:right-6 z-20 flex h-9 w-9 items-center justify-center rounded-full text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:text-white dark:hover:text-blue-400 dark:hover:bg-slate-800/60 active:scale-90 transition-all duration-150 [-webkit-tap-highlight-color:transparent]"
         >
           {copied ? (
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -133,9 +101,18 @@ function QrPage() {
 
         <main className="relative z-10 min-h-[100dvh] flex flex-col items-center justify-center gap-12 px-4 py-12">
           {/* Apparition en CSS (opacité + translation) : gérée par le GPU. */}
-          <h1 className="animate-fade-up opacity-0 text-center font-anton text-5xl sm:text-7xl uppercase tracking-wide leading-none text-blue-600 dark:text-blue-400">
-            Mdoughy Yanis
-          </h1>
+          <div className="animate-fade-up opacity-0">
+            <DepthText
+              text="Mdoughy Yanis"
+              as="h1"
+              layers={30}
+              depth={2.2}
+              faceColor="var(--depth-name-face)"
+              depthColor="var(--depth-name-back)"
+              fontSize="clamp(3rem, 13vw, 4.5rem)"
+              className="font-anton uppercase"
+            />
+          </div>
 
           {/* QR code 3D : React Bits « Tilted Card » + couches en profondeur */}
           <a
@@ -170,7 +147,7 @@ function QrPage() {
             loop
             showCursor
             cursorCharacter="_"
-            className="text-center text-sm sm:text-base font-semibold text-slate-500 dark:text-slate-400 px-6 min-h-[3em] sm:min-h-[2.5em]"
+            className="text-center text-sm sm:text-base font-semibold text-slate-600 dark:text-white px-6 min-h-[3em] sm:min-h-[2.5em]"
             cursorClassName="text-blue-600 dark:text-blue-400"
           />
         </main>

@@ -47,17 +47,17 @@ export default function AdnWindow({ onClose }) {
         {/* Barre de navigation */}
         <header className="flex shrink-0 items-center gap-4 border-b border-white/10 bg-[#0d1226] px-4 py-2.5">
           <AdnMark className="h-6 w-6 shrink-0" />
-          <nav className="hidden gap-4 font-code text-[11px] font-bold uppercase tracking-wider text-slate-400 sm:flex">
+          <nav className="hidden gap-4 font-code text-[11px] font-bold uppercase tracking-wider text-white sm:flex">
             <span>Catalogue</span>
             <span>Simulcast</span>
             <span className="text-white">Mes favoris</span>
           </nav>
-          <span className="ml-auto hidden font-code text-[11px] text-slate-400 sm:inline">Yanis</span>
+          <span className="ml-auto hidden font-code text-[11px] text-white sm:inline">Yanis</span>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fermer"
-            className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded text-slate-400 transition-colors hover:bg-white/10 hover:text-white sm:ml-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--adn-cyan)]"
+            className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded text-white transition-colors hover:bg-white/10 hover:text-white sm:ml-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--adn-cyan)]"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -88,12 +88,12 @@ export default function AdnWindow({ onClose }) {
           </div>
 
           <div className="flex flex-col gap-2.5 px-4 py-4 sm:gap-3 sm:px-5 sm:py-5">
-            <p className="max-w-prose text-sm leading-relaxed text-slate-300">{anime.blurb}</p>
+            <p className="max-w-prose text-sm leading-relaxed text-white">{anime.blurb}</p>
             <div className="flex flex-wrap gap-1.5">
               {anime.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/15 px-2.5 py-1 font-code text-[10px] text-slate-300"
+                  className="rounded-full border border-white/15 px-2.5 py-1 font-code text-[10px] text-white"
                 >
                   {tag}
                 </span>
@@ -103,7 +103,7 @@ export default function AdnWindow({ onClose }) {
 
           {/* Grille des séries préférées */}
           <section className="border-t border-white/10 px-4 py-4 sm:px-5 sm:py-5">
-            <h4 className="mb-3 font-code text-[11px] font-bold uppercase tracking-widest text-slate-400">
+            <h4 className="mb-3 font-code text-[11px] font-bold uppercase tracking-widest text-white">
               Mes animés préférés
             </h4>
             <ul className="grid grid-cols-3 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">

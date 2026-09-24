@@ -10,13 +10,13 @@ const paragraphs = [
 
 function About() {
   return (
-    <section id="about" className="py-20 sm:py-24 bg-white dark:bg-slate-950 reveal" data-reveal>
+    <section id="about" className="py-20 sm:py-24 bg-transparent reveal" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="À propos" mark={mark} />
 
         <Typewriter
           paragraphs={paragraphs}
-          className="max-w-3xl space-y-5 text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300"
+          className="max-w-3xl space-y-5 text-base sm:text-lg leading-relaxed text-slate-600 dark:text-white"
         />
       </div>
     </section>

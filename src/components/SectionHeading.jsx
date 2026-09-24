@@ -1,5 +1,5 @@
 import opMark from '../assets/marks/one-piece-emblem.svg'
-import BlurText from './BlurText.jsx'
+import DepthText from './DepthText.jsx'
 import { useEffect, useRef, useState } from 'react'
 
 function SectionHeading({ title, align = 'left', mark = opMark }) {
@@ -21,13 +21,11 @@ function SectionHeading({ title, align = 'left', mark = opMark }) {
   return (
     <div ref={ref} className={`mb-10 sm:mb-12 flex flex-col ${alignment}`}>
       <div className="flex items-center gap-3 sm:gap-4">
-        <BlurText
+        <DepthText
           text={title}
-          tag="h2"
-          animateBy="words"
-          direction="top"
-          delay={100}
-          className="heading-shadow font-anton text-4xl sm:text-5xl uppercase tracking-wide leading-none text-slate-900 dark:text-white"
+          as="h2"
+          fontSize="clamp(2rem, 7vw, 3rem)"
+          className="font-anton uppercase"
         />
         <img
           src={mark}

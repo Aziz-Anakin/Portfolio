@@ -120,18 +120,13 @@ export default function Lightbox({ images, index = 0, title = '', onClose }) {
           />
         </div>
 
-        <figcaption className="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-300">
+        <figcaption className="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm text-white">
           {title && <span className="font-code font-semibold text-white">{title}</span>}
           {count > 1 && (
-            <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs tabular-nums text-slate-200">
+            <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs tabular-nums text-white">
               {i + 1} / {count}
             </span>
           )}
-          <span className="font-code text-[11px] text-slate-400">
-            <span className="sm:hidden">{zoomed ? 'Toucher pour réduire' : 'Toucher pour zoomer'}</span>
-            <span className="hidden sm:inline">{zoomed ? 'Cliquer pour réduire' : 'Cliquer pour zoomer'}</span>
-            {count > 1 && !zoomed && <span className="sm:hidden"> · glisser pour naviguer</span>}
-          </span>
         </figcaption>
       </figure>
 

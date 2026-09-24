@@ -1,4 +1,7 @@
+import { useRef } from 'react'
+import { motion, useScroll, useSpring } from 'motion/react'
 import SectionHeading from '../components/SectionHeading.jsx'
+import SpotlightCard from '../components/SpotlightCard.jsx'
 import mark from '../assets/marks/one-piece-4.svg'
 import interfaceLogo from '../assets/images/interface-formation.png'
 
@@ -37,97 +40,99 @@ const experiences = [
   },
 ]
 
+const pad = (n) => String(n).padStart(2, '0')
+
+// Frise chronologique : la ligne se remplit au fil du défilement,
+// chaque étape s'allume quand la ligne l'atteint.
 function Experience() {
+  const listRef = useRef(null)
+  const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 75%', 'end 55%'] })
+  const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 })
+
   return (
-    <section id="experience" className="py-20 sm:py-24 bg-white dark:bg-slate-950 reveal" data-reveal>
+    <section id="experience" className="py-20 sm:py-24 bg-transparent reveal" data-reveal>
       <div className="max-w-content mx-auto px-5 sm:px-8">
         <SectionHeading title="Expérience" mark={mark} />
 
-        <ol className="max-w-3xl space-y-10">
-          {experiences.map((exp) => (
-            <li key={exp.role} className="reveal" data-reveal>
+        <ol ref={listRef} className="relative max-w-4xl space-y-8 pl-12 sm:pl-16">
+          {/* Rail + remplissage lié au défilement */}
+          <span aria-hidden="true" className="absolute bottom-3 left-[15px] top-3 w-0.5 rounded-full bg-white/10 sm:left-[23px]" />
+          <motion.span
+            aria-hidden="true"
+            style={{ scaleY: fill }}
+            className="absolute bottom-3 left-[15px] top-3 w-0.5 origin-top rounded-full bg-gradient-to-b from-blue-500 via-indigo-500 to-violet-500 shadow-[0_0_12px_rgba(99,102,241,0.8)] sm:left-[23px]"
+          />
 
-              {/* ── Header : logo + infos ── */}
-              <div className="flex flex-wrap items-center gap-4 mb-4">
-                {exp.logo ? (
-                  <a
-                    href={exp.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={exp.company}
-                    className="shrink-0"
-                  >
-                    <img
-                      src={exp.logo}
-                      alt={exp.company}
-                      className={`h-10 w-auto max-w-[120px] sm:max-w-[140px] object-contain ${exp.darkLogo ? 'invert dark:invert-0' : ''}`}
-                    />
-                  </a>
-                ) : (
-                  <span
-                    aria-hidden="true"
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-base font-bold text-white"
-                  >
-                    {exp.company.charAt(0)}
-                  </span>
-                )}
+          {experiences.map((exp, i) => (
+            <li key={exp.role} className="relative reveal" data-reveal>
+              {/* Étape */}
+              <span
+                aria-hidden="true"
+                className="absolute -left-12 top-6 flex h-8 w-8 items-center justify-center rounded-full border border-blue-400/50 bg-slate-950 font-code text-[10px] font-bold text-blue-300 shadow-[0_0_18px_rgba(59,130,246,0.45)] sm:-left-16 sm:h-12 sm:w-12 sm:text-xs"
+              >
+                {pad(i + 1)}
+              </span>
 
-                <div className="min-w-0 flex-1">
-                  {exp.href ? (
+              <SpotlightCard spotlightColor="rgba(96, 165, 250, 0.16)" className="group p-5 transition-transform duration-300 hover:-translate-y-1 sm:p-7">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex min-w-0 items-center gap-4">
                     <a
                       href={exp.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      aria-label={exp.company}
+                      className="flex h-14 w-24 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 p-2 transition-colors hover:border-blue-400/50 sm:w-32"
                     >
-                      {exp.company}
-                      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <line x1="7" y1="17" x2="17" y2="7" />
-                        <polyline points="7 7 17 7 17 17" />
-                      </svg>
+                      <img src={exp.logo} alt={exp.company} className="max-h-full max-w-full object-contain" />
                     </a>
-                  ) : (
-                    <span className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">
-                      {exp.company}
-                    </span>
-                  )}
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mt-0.5">
-                    <h3 className="font-code text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white">
-                      {exp.role}
-                    </h3>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                      {exp.duration}
-                    </span>
+                    <div className="min-w-0">
+                      <a
+                        href={exp.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-blue-300 transition-colors hover:text-blue-200"
+                      >
+                        {exp.company}
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <line x1="7" y1="17" x2="17" y2="7" />
+                          <polyline points="7 7 17 7 17 17" />
+                        </svg>
+                      </a>
+                      <h3 className="mt-1 font-anton text-2xl uppercase leading-tight tracking-wide text-white sm:text-3xl">{exp.role}</h3>
+                    </div>
                   </div>
+
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-code text-xs font-bold text-white">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    {exp.duration}
+                  </span>
                 </div>
-              </div>
 
-              {/* ── Description ── */}
-              <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-                {exp.description}
-              </p>
+                <p className="mt-5 text-sm leading-relaxed text-white">{exp.description}</p>
 
-              {/* ── Skills & Competencies Badges with Logos ── */}
-              {exp.skills && exp.skills.length > 0 && (
-                <div className="flex flex-wrap gap-2.5 mt-4">
-                  {exp.skills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-                    >
-                      {skill.logo && (
+                {exp.skills?.length > 0 && (
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {exp.skills.map((skill) => (
+                      <span
+                        key={skill.name}
+                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-400/60"
+                      >
                         <img
                           src={skill.logo}
-                          alt={skill.name}
-                          className={`w-4 h-4 object-contain shrink-0 ${skill.invert ? 'dark:invert' : ''}`}
+                          alt=""
+                          aria-hidden="true"
+                          className={`h-4 w-4 shrink-0 object-contain ${skill.invert ? 'invert' : ''}`}
                           onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
-                      )}
-                      <span>{skill.name}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+                        {skill.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </SpotlightCard>
             </li>
           ))}
         </ol>
