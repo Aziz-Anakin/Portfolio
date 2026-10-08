@@ -1,0 +1,151 @@
+import '../styles/index.css'
+import { useEffect, useState } from 'react'
+import QRCode from 'qrcode'
+import Particles from '../components/Particles.jsx'
+import TiltedCard from '../components/TiltedCard.jsx'
+import TextType from '../components/TextType.jsx'
+import DepthText from '../components/DepthText.jsx'
+import useShare from '../hooks/useShare.js'
+
+// Adresse publique du portfolio (GitHub Pages) encodée dans le QR code.
+const PORTFOLIO_URL = 'https://aziz-anakin.github.io/Portfolio/'
+
+// Citations qui défilent en boucle (machine à écrire) sous le QR code.
+const QUOTES = [
+  'Scanne-moi, je mords pas (souvent).',
+  '99 problèmes mais un bon portfolio en résout un.',
+  'console.log("scanne-moi")',
+  'Un scan pour les impressionner tous.',
+  'Ctrl+Z ne marche pas dans la vraie vie, scanne au lieu de réfléchir.',
+]
+
+// QR rendu en PNG (et non en SVG) : Safari le rastérise une seule fois au lieu
+// de le redessiner à chaque image pendant la rotation 3D.
+const qrPng = (dark) =>
+  QRCode.toDataURL(PORTFOLIO_URL, {
+    errorCorrectionLevel: 'M',
+    margin: 0,
+    width: 1024,
+    color: { dark, light: '#0000' },
+  })
+
+// Couche de la carte, décalée en profondeur pour l'effet de relief.
+// backface-visibility évite le scintillement des couches 3D sur iOS.
+const Layer = ({ z, className = '', children }) => (
+  <div
+    className={`absolute ${className}`}
+    style={{ transform: `translateZ(${z}px)`, WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden' }}
+  >
+    {children}
+  </div>
+)
+
+const QrImage = ({ src }) => (
+  <img src={src} alt="" draggable={false} decoding="async" className="block h-full w-full [image-rendering:pixelated]" />
+)
+
+function QrPage() {
+  const [front, setFront] = useState('')
+  const [depth, setDepth] = useState('')
+  const [size, setSize] = useState(() => Math.min(340, window.innerWidth - 48))
+  const { copied, share } = useShare({
+    url: PORTFOLIO_URL,
+    text: 'Découvre le portfolio de Yanis Mdoughy',
+  })
+
+  useEffect(() => {
+    qrPng('#0f172a').then(setFront)
+    qrPng('#6366f1').then(setDepth)
+    const onResize = () => setSize(Math.min(340, window.innerWidth - 48))
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  return (
+      <div className="relative min-h-[100dvh] overflow-hidden bg-[#04050a] font-sans text-white">
+        {/* Fond React Bits « Particles » */}
+        <div className="absolute inset-0" aria-hidden="true">
+          <Particles particleCount={800} particleSpread={14} speed={0.06} particleBaseSize={110} sizeRandomness={1} cameraDistance={22} />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(4,5,10,0.55)_70%,rgba(4,5,10,0.95)_100%)]" />
+        </div>
+
+        {/* Partage natif (iPhone / Android / PC), discret en haut à droite */}
+        <button
+          type="button"
+          onClick={share}
+          aria-label={copied ? 'Lien copié !' : 'Partager le portfolio'}
+          title={copied ? 'Lien copié !' : 'Partager le portfolio'}
+          className="fixed top-4 right-4 sm:top-6 sm:right-6 z-20 flex h-9 w-9 items-center justify-center rounded-full text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:text-white dark:hover:text-blue-400 dark:hover:bg-slate-800/60 active:scale-90 transition-all duration-150 [-webkit-tap-highlight-color:transparent]"
+        >
+          {copied ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+          )}
+        </button>
+
+        <main className="relative z-10 min-h-[100dvh] flex flex-col items-center justify-center gap-12 px-4 py-12">
+          {/* Apparition en CSS (opacité + translation) : gérée par le GPU. */}
+          <div className="animate-fade-up opacity-0">
+            <DepthText
+              text="Mdoughy Yanis"
+              as="h1"
+              layers={30}
+              depth={2.2}
+              faceColor="var(--depth-name-face)"
+              depthColor="var(--depth-name-back)"
+              fontSize="clamp(3rem, 13vw, 4.5rem)"
+              className="font-anton uppercase"
+            />
+          </div>
+
+          {/* QR code 3D : React Bits « Tilted Card » + couches en profondeur */}
+          <a
+            href={PORTFOLIO_URL}
+            aria-label="Ouvrir le portfolio de Yanis Mdoughy"
+            className="[-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] select-none"
+          >
+            <TiltedCard size={size} rotateAmplitude={18}>
+              {/* Ombre portée au sol (dégradé plutôt que filtre blur : bien plus léger sur iOS) */}
+              <Layer z={-40} className="-inset-6 rounded-full bg-[radial-gradient(closest-side,rgba(99,102,241,0.45),transparent)]" />
+              {/* Plaque arrière (épaisseur) */}
+              <Layer z={0} className="inset-0 rounded-[2rem] bg-gradient-to-br from-blue-600 via-indigo-500 to-violet-500" />
+              {/* Plaque avant blanche */}
+              <Layer z={24} className="inset-0 rounded-[2rem] bg-white shadow-2xl shadow-slate-900/30 ring-1 ring-slate-200" />
+              {/* Modules du QR : copie colorée en retrait = relief extrudé */}
+              <Layer z={34} className="inset-[9%] opacity-60">
+                {depth && <QrImage src={depth} />}
+              </Layer>
+              <Layer z={52} className="inset-[9%]">
+                {front && <QrImage src={front} />}
+              </Layer>
+            </TiltedCard>
+          </a>
+
+          {/* Citations React Bits « Text Type » : tape puis efface, en boucle infinie */}
+          <TextType
+            as="p"
+            text={QUOTES}
+            typingSpeed={45}
+            deletingSpeed={20}
+            pauseDuration={1800}
+            loop
+            showCursor
+            cursorCharacter="_"
+            className="text-center text-sm sm:text-base font-semibold text-slate-600 dark:text-white px-6 min-h-[3em] sm:min-h-[2.5em]"
+            cursorClassName="text-blue-600 dark:text-blue-400"
+          />
+        </main>
+      </div>
+  )
+}
+
+export default QrPage

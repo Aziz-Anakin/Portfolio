@@ -1,0 +1,149 @@
+import { useEffect, useState, useCallback, useRef } from 'react'
+import { createPortal } from 'react-dom'
+
+// Distance horizontale minimale (px) pour qu'un glissement compte comme une navigation.
+const SWIPE_THRESHOLD = 45
+
+// Modale d'aperçu plein écran. Rendue dans <body> via portail pour échapper
+// aux contextes overflow/transform des cartes. Ferme au clic sur le fond ou
+// Échap ; flèches gauche/droite pour naviguer entre les captures.
+//
+// Sur mobile, une capture d'écran d'application prise sur grand écran devient
+// illisible une fois réduite à la largeur d'un téléphone : on peut donc glisser
+// pour changer d'image et toucher l'image pour la passer en taille réelle, le
+// cadre devenant alors défilable dans les deux axes.
+export default function Lightbox({ images, index = 0, title = '', onClose }) {
+  const [prevIndex, setPrevIndex] = useState(index)
+  const [i, setI] = useState(index)
+  const [zoomed, setZoomed] = useState(false)
+  const touchStart = useRef(null)
+  const count = images.length
+
+  if (index !== prevIndex) {
+    setPrevIndex(index)
+    setI(index)
+  }
+
+  const prev = useCallback(() => { setZoomed(false); setI((v) => (v - 1 + count) % count) }, [count])
+  const next = useCallback(() => { setZoomed(false); setI((v) => (v + 1) % count) }, [count])
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+      else if (e.key === 'ArrowLeft') prev()
+      else if (e.key === 'ArrowRight') next()
+    }
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [onClose, prev, next])
+
+  // Glissement horizontal — désactivé en zoom, où le doigt sert à se déplacer dans l'image.
+  const onTouchStart = (e) => {
+    if (zoomed) return
+    const t = e.touches[0]
+    touchStart.current = { x: t.clientX, y: t.clientY }
+  }
+  const onTouchEnd = (e) => {
+    if (zoomed || !touchStart.current) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - touchStart.current.x
+    const dy = t.clientY - touchStart.current.y
+    touchStart.current = null
+    if (count > 1 && Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) next()
+      else prev()
+    }
+  }
+
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={title ? `Aperçu de ${title}` : 'Aperçu'}
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[var(--bg)]/95 p-3 backdrop-blur-md animate-fade-in sm:p-8"
+    >
+      {/* Fermer */}
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Fermer l'aperçu"
+        className="absolute top-4 right-4 z-20 sm:top-6 sm:right-6 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-white transition-transform duration-300 ease-out hover:rotate-90"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      {/* Précédent — masqué en zoom pour libérer la surface de déplacement */}
+      {count > 1 && !zoomed && (
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); prev() }}
+          aria-label="Capture précédente"
+          className="absolute left-2 z-20 sm:left-6 hidden h-11 w-11 items-center justify-center cursor-pointer rounded-full text-white transition-transform duration-300 ease-out hover:-translate-x-1 sm:flex"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+      )}
+
+      <figure
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        className="flex max-h-full w-full max-w-5xl flex-col items-center"
+      >
+        <div
+          className={`w-full rounded-xl ${
+            zoomed ? 'overflow-auto' : 'overflow-hidden'
+          }`}
+          style={zoomed ? { maxHeight: '78vh' } : undefined}
+        >
+          <img
+            key={i}
+            src={images[i]}
+            alt={title ? `${title} — aperçu ${i + 1}` : `Aperçu ${i + 1}`}
+            onClick={() => setZoomed((v) => !v)}
+            className={
+              zoomed
+                ? 'w-[280%] max-w-none cursor-zoom-out sm:w-[160%]'
+                : 'max-h-[78vh] w-full cursor-zoom-in object-contain animate-zoom-in'
+            }
+          />
+        </div>
+
+        <figcaption className="t-label mt-5 flex flex-wrap items-center justify-center gap-3">
+          {title && <span>{title}</span>}
+          {count > 1 && (
+            <span className="tabular-nums">
+              {i + 1} / {count}
+            </span>
+          )}
+        </figcaption>
+      </figure>
+
+      {/* Suivant */}
+      {count > 1 && !zoomed && (
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); next() }}
+          aria-label="Capture suivante"
+          className="absolute right-2 z-20 sm:right-6 hidden h-11 w-11 items-center justify-center cursor-pointer rounded-full text-white transition-transform duration-300 ease-out hover:translate-x-1 sm:flex"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      )}
+    </div>,
+    document.body,
+  )
+}
