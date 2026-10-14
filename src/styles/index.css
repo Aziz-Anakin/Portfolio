@@ -1,0 +1,321 @@
+/* Police Anton self-hébergée (fiable sur Safari iOS, contrairement au CDN Google Fonts) */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/anton-latin.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Système visuel
+   Noir et blanc pur : aucun texte gris, aucune boîte. La hiérarchie vient de la
+   taille, de la police et de l'espace. La seule couleur est celle des logos et
+   des captures d'écran.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    --bg: #04050a;
+    --header-h: 4.5rem;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Couleurs des titres en relief (DepthText, page QR) */
+    --depth-face: #f8fafc;
+    --depth-back: #3b82f6;
+    --depth-name-face: #60a5fa;
+    --depth-name-back: #4338ca;
+    /* Épaisseur des titres en relief : un bleu nuit, pour rester proche du noir */
+    --depth-title-back: #2a2f8f;
+  }
+
+  /* Le site est une suite de slides plein écran : la page elle-même ne défile jamais. */
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  /* Grand écran : tout est en rem, donc réduire la base réduit tout le site d'un coup. */
+  @media (min-width: 1024px) {
+    html {
+      font-size: 87.5%;
+    }
+  }
+  @media (min-width: 1600px) {
+    html {
+      font-size: 81.25%;
+    }
+  }
+
+  /* Téléphone : site normal, la page défile (voir Deck.jsx). */
+  html.flow {
+    height: auto;
+    overflow-x: clip;
+    overflow-y: auto;
+    overscroll-behavior: auto;
+  }
+  html.flow body {
+    height: auto;
+    overflow: visible;
+    overflow-x: clip;
+    overscroll-behavior: auto;
+  }
+
+  body {
+    @apply font-sans text-white antialiased;
+    background: var(--bg);
+  }
+
+  ::selection {
+    background: #fff;
+    color: var(--bg);
+  }
+
+  /* Pas de rectangle de focus ni de surbrillance au toucher. */
+  :focus,
+  :focus-visible {
+    outline: none;
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Rien ne se sélectionne ni ne se copie sur le site (les champs de saisie restent normaux). */
+  body {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  input,
+  textarea {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  /* Scrollbar discrète */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
+@layer components {
+  /* ── Typographie : 3 polices, un rôle chacune ──
+     Anton          titres d'affichage (nom, titres de section, grandes lignes)
+     Space Grotesk  tout ce qui se lit (intertitres, texte, boutons)
+     Space Mono     étiquettes et données (dates, compteurs, noms de fichiers) */
+  .t-display,
+  .t-title {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+  .t-display {
+    font-size: clamp(3rem, min(10vw, 15vh), 7.5rem);
+    line-height: 0.95;
+  }
+  .t-title {
+    font-size: clamp(2.25rem, min(6.4vw, 8.5vh), 4.5rem);
+    line-height: 1;
+  }
+  .t-heading {
+    font-size: clamp(1.375rem, 2.1vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .t-lead {
+    font-size: clamp(1.125rem, 1.7vw, 1.375rem);
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+  .t-text {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .t-small {
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+  .t-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .t-data {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  /* ── Mise en page ── */
+  .container-page {
+    width: 100%;
+    max-width: 86rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+  /* Contenu d'une slide : centré dans l'écran, avec de l'air en haut et en bas. */
+  .slide {
+    padding-block: clamp(1rem, 3vh, 2.5rem);
+  }
+
+  /* Portrait de l'accueil : fondu vers le noir, par le bas (téléphone) ou par la gauche (ordinateur). */
+  .hero-photo {
+    -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+  }
+  @media (min-width: 768px) {
+    .hero-photo {
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 42%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 42%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+    }
+  }
+
+  /* Accueil : un trait qui descend en boucle invite à défiler */
+  .scroll-cue {
+    animation: scroll-cue 1.8s var(--ease-out) infinite;
+  }
+  @keyframes scroll-cue {
+    0% { transform: translateY(-100%); }
+    60%, 100% { transform: translateY(200%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue { animation: none; }
+  }
+
+  /* Curseur (voir Cursor.jsx) : un point, et un anneau qui grossit sur ce qui se clique. */
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 999px;
+    background: #fff;
+    mix-blend-mode: difference;
+    transition: opacity 0.3s;
+  }
+  .cursor-ring {
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px;
+    transition: opacity 0.3s;
+  }
+  .cursor-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid #fff;
+    border-radius: 999px;
+    mix-blend-mode: difference;
+    transition: transform 0.35s var(--ease-out), background-color 0.35s, border-color 0.35s;
+  }
+  .cursor-ring[data-mode='link']::before {
+    transform: scale(1.55);
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .cursor-ring[data-mode='label']::before {
+    transform: scale(2.3);
+    background: #fff;
+  }
+  .cursor-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--bg);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .cursor-ring[data-mode='label'] .cursor-label {
+    opacity: 1;
+  }
+
+  /* ── Boutons et liens ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding-inline: 1.375rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.25s var(--ease-out), background-color 0.2s;
+  }
+  .btn-primary {
+    background: #fff;
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* Lien texte : un trait se trace sous le mot au survol. */
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 calc(50% + 0.75em);
+    transition: background-size 0.35s var(--ease-out);
+  }
+  .link:hover,
+  .link:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+@layer utilities {
+  /* Bande d'aperçus : défilement tactile sans barre visible */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
