@@ -4,7 +4,6 @@ import { motion, useAnimate } from 'motion/react'
 import { DeckProvider, DeckStage, useDeck } from './components/Deck.jsx'
 import Header from './components/Header.jsx'
 import Particles from './components/Particles.jsx'
-import Cursor from './components/Cursor.jsx'
 import Error30k from './components/Error30k.jsx'
 import CvModal from './components/CvModal.jsx'
 import Hero from './sections/Hero.jsx'
@@ -117,7 +116,6 @@ function App() {
   return (
     <DeckProvider slides={slides}>
       <Shell onOpenCv={() => setIsCvOpen(true)} />
-      <Cursor />
       <Error30k />
       {isCvOpen && <CvModal isOpen={isCvOpen} onClose={() => setIsCvOpen(false)} />}
     </DeckProvider>

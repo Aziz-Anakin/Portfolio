@@ -193,8 +193,8 @@
   }
   @media (min-width: 768px) {
     .hero-photo {
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 42%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
-      mask-image: linear-gradient(90deg, transparent 0%, #000 42%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 38%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
       -webkit-mask-composite: source-in;
       mask-composite: intersect;
     }
@@ -210,56 +210,6 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .scroll-cue { animation: none; }
-  }
-
-  /* Curseur (voir Cursor.jsx) : un point, et un anneau qui grossit sur ce qui se clique. */
-  .cursor-dot {
-    width: 6px;
-    height: 6px;
-    margin: -3px 0 0 -3px;
-    border-radius: 999px;
-    background: #fff;
-    mix-blend-mode: difference;
-    transition: opacity 0.3s;
-  }
-  .cursor-ring {
-    width: 36px;
-    height: 36px;
-    margin: -18px 0 0 -18px;
-    transition: opacity 0.3s;
-  }
-  .cursor-ring::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid #fff;
-    border-radius: 999px;
-    mix-blend-mode: difference;
-    transition: transform 0.35s var(--ease-out), background-color 0.35s, border-color 0.35s;
-  }
-  .cursor-ring[data-mode='link']::before {
-    transform: scale(1.55);
-    background: rgba(255, 255, 255, 0.14);
-  }
-  .cursor-ring[data-mode='label']::before {
-    transform: scale(2.3);
-    background: #fff;
-  }
-  .cursor-label {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--bg);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .cursor-ring[data-mode='label'] .cursor-label {
-    opacity: 1;
   }
 
   /* ── Boutons et liens ── */

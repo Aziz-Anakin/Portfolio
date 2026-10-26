@@ -4,6 +4,9 @@ import { PROFILE } from '../data/profile'
 import DepthText from '../components/DepthText.jsx'
 import photo from '../assets/images/photo.jpg'
 
+// Portrait = photo de profil GitHub : la changer sur GitHub la change ici. L'image locale ne sert que si GitHub ne répond pas.
+const AVATAR = `https://github.com/${PROFILE.github.label}.png?size=800`
+
 const ease = [0.16, 1, 0.3, 1]
 
 // Accueil : le portrait occupe tout un côté de l'écran et se fond dans le noir ; le nom
@@ -28,9 +31,19 @@ function Hero({ onOpenCv }) {
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, ease }}
-        className="hero-photo absolute inset-x-0 top-0 h-[68%] md:inset-y-0 md:left-auto md:right-0 md:h-full md:w-[56%]"
+        className="hero-photo absolute inset-x-0 top-0 h-[46%] md:inset-y-auto md:left-auto md:right-[4%] md:top-1/2 md:h-[82%] md:w-[36%] md:-translate-y-1/2"
       >
-        <img src={photo} alt="" width="800" height="800" className="h-full w-full object-cover object-[50%_18%]" />
+        <img
+          src={AVATAR}
+          onError={(e) => {
+            e.currentTarget.onerror = null
+            e.currentTarget.src = photo
+          }}
+          alt=""
+          width="800"
+          height="800"
+          className="h-full w-full object-cover object-[50%_18%]"
+        />
       </motion.div>
 
       {/* Invitation à défiler (ordinateur) */}
@@ -67,7 +80,7 @@ function Hero({ onOpenCv }) {
         </motion.p>
 
         <motion.div {...rise(0.32)} className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-1 md:mt-7">
-          <a href="#projects" data-magnetic className="btn btn-primary w-full sm:w-auto">
+          <a href="#projects" className="btn btn-primary w-full sm:w-auto">
             Voir mes projets
             <ArrowDown />
           </a>

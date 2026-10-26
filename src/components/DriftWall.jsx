@@ -339,7 +339,6 @@ const DriftWall = ({
         tabIndex={0}
         role="button"
         aria-label={item.title ?? 'tile'}
-        data-cursor="Ouvrir"
         onClick={() => onItemClick?.(item)}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
