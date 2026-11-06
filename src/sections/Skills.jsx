@@ -1,16 +1,13 @@
 import { useMemo } from 'react'
 import { SKILLS } from '../data/skills'
-import { PROFILE } from '../data/profile'
 import SlideFrame from '../components/SlideFrame.jsx'
 import Reveal from '../components/Reveal.jsx'
 import LogoLoop from '../components/LogoLoop.jsx'
 
 // Rangées qui défilent (React Bits « Logo Loop »), en sens alterné.
 // Rien ne les arrête : ni le survol, ni le clic, ni le toucher (pauseOnHover={false}).
-// La stack principale (data/profile.js) est mise en avant ; le reste défile en dessous.
-const MAIN = SKILLS.dev.filter((s) => PROFILE.mainStack.includes(s.name))
 const ROWS = [
-  { label: 'Développement', items: SKILLS.dev.filter((s) => !PROFILE.mainStack.includes(s.name)), direction: 'left' },
+  { label: 'Développement', items: SKILLS.dev, direction: 'left' },
   { label: 'Outils', items: SKILLS.tools, direction: 'right' },
   { label: 'Création', items: SKILLS.creation, direction: 'left' },
 ]
@@ -41,7 +38,7 @@ function Row({ row, index }) {
   return (
     <Reveal delay={0.08 + index * 0.08}>
       <h3 className="t-heading">{row.label}</h3>
-      <div className={`mt-3 ${EDGE_FADE}`}>
+      <div className={`mt-5 ${EDGE_FADE}`}>
         <LogoLoop
           logos={logos}
           speed={48}
@@ -58,28 +55,12 @@ function Row({ row, index }) {
   )
 }
 
-function Group({ label, items, delay = 0 }) {
-  return (
-    <Reveal delay={delay}>
-      <h3 className="t-heading">{label}</h3>
-      <ul className="mt-3 flex flex-wrap gap-x-10 gap-y-5">
-        {items.map((skill) => (
-          <li key={skill.name}>
-            <SkillItem skill={skill} />
-          </li>
-        ))}
-      </ul>
-    </Reveal>
-  )
-}
-
 function Skills() {
   return (
     <SlideFrame title="Compétences">
-      <div className="space-y-[clamp(0.5rem,2.2vh,2rem)]">
-        <Group label="Stack principale" items={MAIN} />
+      <div className="space-y-[clamp(1.25rem,4.5vh,3rem)]">
         {ROWS.map((row, i) => (
-          <Row key={row.label} row={row} index={i + 1} />
+          <Row key={row.label} row={row} index={i} />
         ))}
       </div>
     </SlideFrame>
