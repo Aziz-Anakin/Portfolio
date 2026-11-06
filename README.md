@@ -7,15 +7,15 @@ Projet réalisé dans le cadre de mes études, durant mon année à Epitech Pari
 ## Stack
 
 - React 19
-- Vite 7
+- Vite 8
 - Tailwind CSS 3
 - [React Bits](https://reactbits.dev/) — inspirations de composants UI
 
 ## Fonctionnalités
 
-- Design responsive (mobile, tablette, desktop)
-- Mode clair / sombre
-- Animations (carrousel de compétences, effet machine à écrire, apparition au scroll)
+- Présentation en slides plein écran (molette, clavier, tactile)
+- Design responsive (mobile, tablette, desktop), `prefers-reduced-motion` respecté
+- Animations (fond étoilé, titres en relief, défilement de logos, apparition des blocs)
 - Page QR code 3D (`/Portfolio/qr/`) pour partager le portfolio
 
 ## Lancer le projet
@@ -32,16 +32,9 @@ npm run dev
 | `npm run dev`     | Démarre le serveur de développement    |
 | `npm run build`   | Compile le projet pour la production   |
 | `npm run preview` | Prévisualise le build de production    |
-| `npm run lint`    | Lance ESLint                           |
+| `npm run lint`    | Lance oxlint                           |
+| `npm run check`   | Contrôle dans un navigateur (Edge)     |
 
 ## Structure
 
-```text
-src/
-├── components/   # Header, Footer, SectionHeading, Typewriter
-├── qr/          # Page QR code (entrée qr/index.html)
-├── sections/     # Home, About, Projects, Skills, Experience, Formation, Contact
-├── data/         # Données statiques (compétences)
-├── styles/       # Point d'entrée Tailwind (index.css)
-└── assets/       # Images, CV, SVG
-```
+Voir [`.claude/CLAUDE.md`](.claude/CLAUDE.md) pour l'architecture détaillée (slides, données, système visuel).

@@ -79,6 +79,14 @@ function Hero({ onOpenCv }) {
           {PROFILE.role}
         </motion.p>
 
+        <motion.p {...rise(0.27)} className="mt-4 flex items-center gap-3">
+          <span aria-hidden="true" className="relative flex h-2.5 w-2.5 shrink-0">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-70 motion-safe:animate-ping" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
+          </span>
+          <span className="t-data">{PROFILE.availability}</span>
+        </motion.p>
+
         <motion.div {...rise(0.32)} className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-1 md:mt-7">
           <a href="#projects" className="btn btn-primary w-full sm:w-auto">
             Voir mes projets

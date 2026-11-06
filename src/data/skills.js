@@ -42,6 +42,8 @@ export const SKILLS = {
     { name: 'Burp Suite',   logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/BurpSuite_Comunity_Edition.svg/250px-BurpSuite_Comunity_Edition.svg.png", href: 'https://portswigger.net/burp' },
     { name: 'VirtualBox',   logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Virtualbox_logo.png/330px-Virtualbox_logo.png",                            href: 'https://www.virtualbox.org' },
     { name: 'FileZilla',    logo: "https://img.icons8.com/color/512/filezilla.png",                href: 'https://filezilla-project.org' },
+  ],
+  ai: [
     { name: 'Claude Code',  logo: "https://cdn.simpleicons.org/claude",                                                                                       href: 'https://claude.com/claude-code' },
     { name: 'Codex',        logo: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg", invert: true,                                          href: 'https://openai.com/codex' },
   ],
