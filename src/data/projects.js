@@ -47,6 +47,7 @@ export const PROJECTS = [
     title: 'Kaiju',
     kind: 'Application temps réel',
     pitch: 'Gestion de crise en temps réel pour une ville fictive : chaque quartier réserve, partage et transfère ses ressources critiques.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Architecture', text: 'Front React et shadcn/ui, API REST NestJS documentée, PostgreSQL avec Prisma. Socket.IO met à jour tous les écrans dès que quelqu’un agit.' },
       { label: 'Point technique', text: 'Quatre rôles aux droits distincts, et des transferts entre quartiers voisins ou via un quartier de transit, ouverts selon le niveau de crise.' },
@@ -62,6 +63,7 @@ export const PROJECTS = [
     kind: 'Application full-stack',
     period: 'Novembre 2025',
     pitch: 'Gestion de tâches avec comptes utilisateurs : inscription, connexion, puis création, édition, statut et suppression de ses tâches.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Architecture', text: 'API Express 5 et Mongoose protégée par JWT et bcrypt. Front React 19 avec édition directe dans la liste, sans fenêtre modale.' },
       { label: 'Point technique', text: 'Se lance sans base à installer : MongoDB en mémoire en développement, Atlas en production. Middleware d’authentification testé avec Jest.' },
@@ -76,6 +78,7 @@ export const PROJECTS = [
     title: 'EcoMap',
     kind: 'Extension Chrome',
     pitch: 'Extension pour Google Maps : elle détecte la commune affichée sur la carte et lui attribue un éco-score à partir de données environnementales publiques.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Architecture', text: 'TypeScript en trois couches (api, core, ui), partagées par le script injecté dans Google Maps et par la popup de l’extension.' },
       { label: 'Point technique', text: 'Croise geo.api.gouv.fr pour retrouver la commune et Open-Meteo pour la qualité de l’air, puis calcule le score dans le navigateur.' },
@@ -90,6 +93,7 @@ export const PROJECTS = [
     title: 'Showeather',
     kind: 'Application web',
     pitch: 'La météo d’une ville en temps réel et ses prévisions sur cinq jours, sans backend ni clé d’API.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Architecture', text: 'Vue 3 découpé en composants (recherche, météo actuelle, prévisions). Tout s’exécute dans le navigateur.' },
       { label: 'Point technique', text: 'Deux appels Open-Meteo enchaînés, géocodage puis météo. Déployé sur GitHub Pages par GitHub Actions, après lint et build.' },
@@ -104,6 +108,7 @@ export const PROJECTS = [
     title: 'PyLiza',
     kind: 'Bot Discord',
     pitch: 'Un bot Discord pour apprendre Python : leçons, quiz chronométrés et un assistant IA qui tourne en local.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Architecture', text: 'Discord.js v14 et commandes slash (/ask, /lesson, /quiz). Leçons et quiz sont des fichiers JSON chargés automatiquement.' },
       { label: 'Point technique', text: 'L’IA est un modèle Phi-3 Mini servi par Ollama, sans service externe. Une seule commande Docker Compose lance le bot et le modèle.' },
@@ -118,6 +123,7 @@ export const PROJECTS = [
     title: 'Tardis',
     kind: 'Data science',
     pitch: 'Analyse des retards SNCF et prédiction du retard d’un trajet entre deux gares.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Architecture', text: 'Un pipeline en trois étapes, où chacune produit le fichier dont la suivante a besoin.' },
       { label: 'Point technique', text: 'Le modèle est exporté avec la liste de ses colonnes : le dashboard reconstruit ainsi une entrée alignée sur l’entraînement.' },
@@ -132,6 +138,7 @@ export const PROJECTS = [
     title: 'NextBuy',
     kind: 'Machine learning',
     pitch: 'Prédit la probabilité qu’un client rachète un produit à sa prochaine commande, à partir de son historique d’achats.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Architecture', text: 'Modèle XGBoost entraîné sur le jeu de données Instacart, servi dans un dashboard Streamlit à plusieurs pages.' },
       { label: 'Point technique', text: 'Chaque prédiction est expliquée en clair, et une analyse SHAP dans le notebook montre le poids de chaque variable.' },
@@ -147,6 +154,7 @@ export const PROJECTS = [
     kind: 'Sécurité web',
     period: 'Décembre 2025',
     pitch: 'Les failles web les plus courantes, étudiées par la pratique sur l’application volontairement vulnérable OWASP Juice Shop.',
+    role: 'Projet personnel, conçu et développé seul, de la conception au code.',
     points: [
       { label: 'Méthode', text: 'Une fiche par catégorie : comment la faille apparaît, quel risque elle fait courir, comment la corriger.' },
       { label: 'Cadre', text: 'Tests menés uniquement sur un environnement d’entraînement, avec Burp Suite.' },
