@@ -12,8 +12,7 @@ const MAIN = SKILLS.dev.filter((s) => PROFILE.mainStack.includes(s.name))
 const ROWS = [
   { label: 'Développement', items: SKILLS.dev.filter((s) => !PROFILE.mainStack.includes(s.name)), direction: 'left' },
   { label: 'Outils', items: SKILLS.tools, direction: 'right' },
-  { label: 'Avec l’IA', items: SKILLS.ai, direction: 'left' },
-  { label: 'Création', items: SKILLS.creation, direction: 'right' },
+  { label: 'Création', items: SKILLS.creation, direction: 'left' },
 ]
 
 // Fondu des bords : les logos apparaissent et disparaissent sans coupure nette.

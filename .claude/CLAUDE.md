@@ -32,7 +32,7 @@ src/
 │   ├── SlideFrame.jsx  cadre commun : titre en haut à gauche, repère à droite, contenu centré
 │   ├── Header.jsx    menu (une entrée par slide), CV, QR, partage, menu mobile
 │   ├── Reveal.jsx, TechList.jsx, Icons.jsx
-│   ├── DriftWall.jsx, LogoLoop.jsx, Particles.jsx   composants React Bits adaptés
+│   ├── DriftWall.jsx, LogoLoop.jsx, Particles.jsx, Stack.jsx   composants React Bits adaptés
 │   ├── Lightbox.jsx, CvModal.jsx, SteamWindow.jsx, AdnWindow.jsx   fenêtres
 │   ├── Error30k.jsx  clin d'œil : taper « 30k »
 │   └── TextType.jsx, TiltedCard.jsx, DepthText.jsx   page QR uniquement
