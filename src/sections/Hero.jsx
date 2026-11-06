@@ -20,14 +20,15 @@ function Hero({ onOpenCv }) {
         }
 
   return (
-    <div className="relative flex w-full flex-1 items-end overflow-hidden md:items-center">
-      {/* Portrait : petit et discret, en haut au centre sur téléphone, à droite sur ordinateur. Il s'efface vers le noir. */}
+    <div className="relative flex w-full flex-1 flex-col justify-end overflow-hidden md:flex-row md:items-center md:justify-start">
+      {/* Portrait : petit et discret. Téléphone : au-dessus du nom, dans le flux, fondu vers le bas.
+          Ordinateur : à droite, fondu circulaire. */}
       <motion.div
         aria-hidden="true"
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, ease }}
-        className="hero-photo absolute left-1/2 top-[13%] aspect-square w-40 -translate-x-1/2 opacity-90 md:left-auto md:right-[9%] md:top-1/2 md:w-[min(24vw,26rem)] md:-translate-y-1/2 md:translate-x-0"
+        className="hero-photo relative mx-auto mb-5 aspect-square h-[min(56vw,34dvh)] shrink-0 opacity-90 md:absolute md:right-[9%] md:top-1/2 md:mx-0 md:mb-0 md:h-auto md:w-[min(24vw,26rem)] md:-translate-y-1/2"
       >
         <img
           src={photo}
