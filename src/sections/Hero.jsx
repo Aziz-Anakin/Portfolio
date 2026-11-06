@@ -4,13 +4,9 @@ import { PROFILE } from '../data/profile'
 import DepthText from '../components/DepthText.jsx'
 import photo from '../assets/images/photo.jpg'
 
-// Portrait = photo de profil GitHub : la changer sur GitHub la change ici. L'image locale ne sert que si GitHub ne répond pas.
-const AVATAR = `https://github.com/${PROFILE.github.label}.png?size=800`
-
 const ease = [0.16, 1, 0.3, 1]
 
-// Accueil : le portrait occupe tout un côté de l'écran et se fond dans le noir ; le nom
-// et trois accès se posent par-dessus. Rien d'autre.
+// Accueil : un petit portrait discret, fondu dans le noir ; le nom et trois accès au premier plan.
 function Hero({ onOpenCv }) {
   const reduce = useReducedMotion()
   // Entrée en cascade : chaque bloc monte à son tour.
@@ -25,24 +21,20 @@ function Hero({ onOpenCv }) {
 
   return (
     <div className="relative flex w-full flex-1 items-end overflow-hidden md:items-center">
-      {/* Portrait : en haut sur téléphone, à droite sur ordinateur. Il s'efface vers le noir. */}
+      {/* Portrait : petit et discret, en haut au centre sur téléphone, à droite sur ordinateur. Il s'efface vers le noir. */}
       <motion.div
         aria-hidden="true"
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.4, ease }}
-        className="hero-photo absolute inset-x-0 top-0 h-[46%] md:inset-y-auto md:left-auto md:right-[4%] md:top-1/2 md:h-[82%] md:w-[36%] md:-translate-y-1/2"
+        className="hero-photo absolute left-1/2 top-[13%] aspect-square w-40 -translate-x-1/2 opacity-90 md:left-auto md:right-[9%] md:top-1/2 md:w-[min(24vw,26rem)] md:-translate-y-1/2 md:translate-x-0"
       >
         <img
-          src={AVATAR}
-          onError={(e) => {
-            e.currentTarget.onerror = null
-            e.currentTarget.src = photo
-          }}
+          src={photo}
           alt=""
           width="800"
           height="800"
-          className="h-full w-full object-cover object-[50%_18%]"
+          className="h-full w-full object-cover"
         />
       </motion.div>
 

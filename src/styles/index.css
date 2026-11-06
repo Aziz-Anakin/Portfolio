@@ -186,18 +186,10 @@
     padding-block: clamp(1rem, 3vh, 2.5rem);
   }
 
-  /* Portrait de l'accueil : fondu vers le noir, par le bas (téléphone) ou par la gauche (ordinateur). */
+  /* Portrait de l'accueil : fondu circulaire vers le noir. */
   .hero-photo {
-    -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
-  }
-  @media (min-width: 768px) {
-    .hero-photo {
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
-      mask-image: linear-gradient(90deg, transparent 0%, #000 38%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
-      -webkit-mask-composite: source-in;
-      mask-composite: intersect;
-    }
+    -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
   }
 
   /* Accueil : un trait qui descend en boucle invite à défiler */
