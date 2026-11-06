@@ -36,7 +36,7 @@ function Row({ row, index }) {
   const logos = useMemo(() => row.items, [row.items])
 
   return (
-    <Reveal delay={0.08 + index * 0.08}>
+    <Reveal variant={row.direction === 'left' ? 'right' : 'left'} delay={0.08 + index * 0.12}>
       <h3 className="t-heading">{row.label}</h3>
       <div className={`mt-5 ${EDGE_FADE}`}>
         <LogoLoop

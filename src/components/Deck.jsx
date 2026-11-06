@@ -215,17 +215,19 @@ export function DeckStage() {
     )
   }
 
+  // La scène ne bouge pas : ce sont les blocs de la slide (Reveal) qui entrent et sortent chacun à leur façon.
+  // Elle ne fait que s'éteindre juste après eux, pour que la slide quitte l'écran proprement.
   const variants = reduce
     ? { enter: { opacity: 0 }, center: { opacity: 1 }, exit: { opacity: 0 } }
     : {
-        enter: (d) => ({ opacity: 0, y: d > 0 ? '12%' : '-12%' }),
-        center: { opacity: 1, y: '0%' },
-        exit: (d) => ({ opacity: 0, y: d > 0 ? '-8%' : '8%' }),
+        enter: { opacity: 1 },
+        center: { opacity: 1 },
+        exit: { opacity: 0, transition: { duration: 0.25, delay: 0.3 } },
       }
 
   return (
     <main className="relative z-10 min-h-0 flex-1 overflow-hidden">
-      <AnimatePresence initial={false} custom={dir}>
+      <AnimatePresence custom={dir}>
         <motion.section
           key={current.id}
           id={current.id}
@@ -236,7 +238,7 @@ export function DeckStage() {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.4, ease }}
           className="no-scrollbar absolute inset-0 overflow-y-auto overflow-x-hidden overscroll-contain"
         >
           <div className="flex min-h-full flex-col pb-[clamp(1rem,4vh,2.5rem)]">{current.render()}</div>

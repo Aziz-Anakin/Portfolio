@@ -41,7 +41,7 @@ function Interests() {
   return (
     <SlideFrame title="Centres d’intérêt">
       <div className="mx-auto grid w-full max-w-[62rem] gap-5 sm:grid-cols-2 lg:h-[min(46vh,23rem)] lg:gap-6">
-        <Reveal delay={0.1} className="h-full">
+        <Reveal variant="left" delay={0.1} className="h-full">
           <LauncherCard
             cover={STEAM_GAMES[0].image}
             accentClass="bg-gradient-to-t from-[#04050a]/90 via-[#04050a]/25 to-transparent"
@@ -51,7 +51,7 @@ function Interests() {
             onClick={() => setOpen('steam')}
           />
         </Reveal>
-        <Reveal delay={0.18} className="h-full">
+        <Reveal variant="right" delay={0.2} className="h-full">
           <LauncherCard
             cover={ADN_ANIMES[0].image}
             accentClass="bg-gradient-to-t from-[#04050a]/90 via-[#04050a]/25 to-transparent"

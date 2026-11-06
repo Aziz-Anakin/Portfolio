@@ -44,7 +44,7 @@ function Formation() {
     <SlideFrame title="Formation">
       <div className="grid gap-8 md:grid-cols-3 md:gap-10">
         {FORMATIONS.map((f, i) => (
-          <Reveal key={f.years} delay={0.1 + i * 0.1} className="md:flex md:justify-center">
+          <Reveal key={f.years} variant="pop" delay={0.1 + i * 0.14} className="md:flex md:justify-center">
             <FormationItem formation={f} small={narrow} />
           </Reveal>
         ))}

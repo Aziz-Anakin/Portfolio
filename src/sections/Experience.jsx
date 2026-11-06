@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { PARCOURS } from '../data/parcours'
 import SlideFrame from '../components/SlideFrame.jsx'
+import { motion } from 'motion/react'
 import Reveal from '../components/Reveal.jsx'
+import WordsReveal from '../components/WordsReveal.jsx'
 import Stack from '../components/Stack.jsx'
 import TechList from '../components/TechList.jsx'
 import { ArrowUpRight } from '../components/Icons.jsx'
@@ -52,16 +54,18 @@ function Experience() {
   return (
     <SlideFrame title="Expérience">
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-        <Reveal delay={0.1} className="lg:col-span-4">
+        <Reveal variant="left" delay={0.1} className="lg:col-span-4">
           <p className="font-anton text-[clamp(3.5rem,9vw,7rem)] leading-none tracking-[0.01em]">
-            {pad(active + 1)}
+            <motion.span key={active} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="inline-block">
+              {pad(active + 1)}
+            </motion.span>
             <span className="t-data ml-3 align-top">/ {pad(EXPERIENCES.length)}</span>
           </p>
-          <p className="t-heading mt-4">{current.place}</p>
+          <WordsReveal key={current.place} as="p" text={current.place} className="t-heading mt-4" />
           <p className="t-data mt-6 hidden lg:block">Touche ou fais glisser la carte</p>
         </Reveal>
 
-        <Reveal delay={0.2} className="lg:col-span-7 lg:col-start-6">
+        <Reveal variant="flip" delay={0.25} className="lg:col-span-7 lg:col-start-6">
           {/* La taille vient du conteneur : Stack remplit 100 % de sa largeur et de sa hauteur */}
           <div className="mx-auto h-[clamp(25rem,62vh,30rem)] w-full max-w-[36rem]">
             <Stack

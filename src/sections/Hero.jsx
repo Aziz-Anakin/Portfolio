@@ -1,43 +1,26 @@
-import { motion, useReducedMotion } from 'motion/react'
+import Reveal from '../components/Reveal.jsx'
+import WordsReveal from '../components/WordsReveal.jsx'
 import { ArrowDown } from '../components/Icons.jsx'
 import { PROFILE } from '../data/profile'
 import DepthText from '../components/DepthText.jsx'
 import photo from '../assets/images/photo.jpg'
 
-const ease = [0.16, 1, 0.3, 1]
-
 // Accueil : un petit portrait discret, fondu dans le noir ; le nom et trois accès au premier plan.
+// Chaque bloc entre à sa façon (voir Reveal) : portrait qui grossit, nom qui monte, rôle mot par mot,
+// disponibilité depuis la gauche, boutons qui rebondissent.
 function Hero({ onOpenCv }) {
-  const reduce = useReducedMotion()
-  // Entrée en cascade : chaque bloc monte à son tour.
-  const rise = (delay) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: 28 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.9, delay, ease },
-        }
-
   return (
     <div className="relative flex w-full flex-1 flex-col justify-end overflow-hidden md:flex-row md:items-center md:justify-start">
       {/* Portrait : petit et discret. Téléphone : au-dessus du nom, dans le flux, fondu vers le bas.
-          Ordinateur : à droite, fondu circulaire. */}
-      <motion.div
+          Ordinateur : à droite, fondu circulaire. La position reste à ce conteneur ; l'animation est dans Reveal. */}
+      <div
         aria-hidden="true"
-        initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, ease }}
         className="hero-photo relative mx-auto mb-5 aspect-square h-[min(56vw,34dvh)] shrink-0 opacity-90 md:absolute md:right-[9%] md:top-1/2 md:mx-0 md:mb-0 md:h-auto md:w-[min(24vw,26rem)] md:-translate-y-1/2"
       >
-        <img
-          src={photo}
-          alt=""
-          width="800"
-          height="800"
-          className="h-full w-full object-cover"
-        />
-      </motion.div>
+        <Reveal variant="zoom" delay={0.1} className="h-full w-full">
+          <img src={photo} alt="" width="800" height="800" className="h-full w-full object-cover" />
+        </Reveal>
+      </div>
 
       {/* Invitation à défiler (ordinateur) */}
       <a href="#about" aria-label="Descendre vers le profil" className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 md:flex">
@@ -49,7 +32,7 @@ function Hero({ onOpenCv }) {
 
       <div className="container-page relative z-10 w-full pb-4 md:pb-0">
         <h1 className="sr-only">Yanis Mdoughy, portfolio</h1>
-        <motion.p {...rise(0.12)} aria-hidden="true" className="flex flex-col items-start">
+        <Reveal as="p" delay={0.12} aria-hidden="true" className="flex flex-col items-start">
           {['Yanis', 'Mdoughy'].map((word, i) => (
             <DepthText
               key={word}
@@ -66,21 +49,19 @@ function Hero({ onOpenCv }) {
               className="font-anton uppercase leading-[0.95]"
             />
           ))}
-        </motion.p>
+        </Reveal>
 
-        <motion.p {...rise(0.22)} className="t-lead mt-5">
-          {PROFILE.role}
-        </motion.p>
+        <WordsReveal as="p" text={PROFILE.role} delay={0.3} className="t-lead mt-5" />
 
-        <motion.p {...rise(0.27)} className="mt-4 flex items-center gap-3">
+        <Reveal as="p" variant="left" delay={0.45} className="mt-4 flex items-center gap-3">
           <span aria-hidden="true" className="relative flex h-2.5 w-2.5 shrink-0">
             <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-70 motion-safe:animate-ping" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
           </span>
           <span className="t-data">{PROFILE.availability}</span>
-        </motion.p>
+        </Reveal>
 
-        <motion.div {...rise(0.32)} className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-1 md:mt-7">
+        <Reveal variant="pop" delay={0.6} className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-1 md:mt-7">
           <a href="#projects" className="btn btn-primary w-full sm:w-auto">
             Voir mes projets
             <ArrowDown />
@@ -91,7 +72,7 @@ function Hero({ onOpenCv }) {
           <a href="#contact" className="link">
             Me contacter
           </a>
-        </motion.div>
+        </Reveal>
       </div>
     </div>
   )

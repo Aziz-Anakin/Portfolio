@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { PROJECTS } from '../data/projects'
 import SlideFrame from '../components/SlideFrame.jsx'
+import Reveal from '../components/Reveal.jsx'
 import DriftWall from '../components/DriftWall.jsx'
 import TechList from '../components/TechList.jsx'
 import Lightbox from '../components/Lightbox.jsx'
@@ -223,7 +224,7 @@ function Projects() {
   return (
     <SlideFrame title="Projets">
       {/* Bords gauche et droit fondus : le mur se dissout au lieu d'être coupé net */}
-      <div className="mx-auto h-[min(72vh,44rem)] min-h-[24rem] w-full max-w-[72rem] sm:[mask-image:linear-gradient(90deg,transparent,#000_5%,#000_95%,transparent)]">
+      <Reveal variant="wipeUp" delay={0.15} className="mx-auto h-[min(72vh,44rem)] min-h-[24rem] w-full max-w-[72rem] sm:[mask-image:linear-gradient(90deg,transparent,#000_5%,#000_95%,transparent)]">
        <div className="h-full w-full sm:[mask-image:linear-gradient(180deg,transparent,#000_8%,#000_92%,transparent)]">
         <DriftWall
           items={tiles}
@@ -247,7 +248,7 @@ function Projects() {
           onItemClick={onClick}
         />
        </div>
-      </div>
+      </Reveal>
 
       <AnimatePresence>
         {open !== null && <ProjectDialog index={open} onClose={() => setOpen(null)} onChange={setOpen} />}

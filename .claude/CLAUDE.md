@@ -31,7 +31,8 @@ src/
 │   │                 et DeckStage (transition entre slides)
 │   ├── SlideFrame.jsx  cadre commun : titre en haut à gauche, repère à droite, contenu centré
 │   ├── Header.jsx    menu (une entrée par slide), CV, QR, partage, menu mobile
-│   ├── Reveal.jsx, TechList.jsx, Icons.jsx
+│   ├── Reveal.jsx    entrée et sortie d'un bloc, une animation par bloc (`variant`) ; WordsReveal.jsx : texte mot par mot
+│   ├── TechList.jsx, Icons.jsx
 │   ├── DriftWall.jsx, LogoLoop.jsx, Particles.jsx, Stack.jsx   composants React Bits adaptés
 │   ├── Lightbox.jsx, CvModal.jsx, SteamWindow.jsx, AdnWindow.jsx   fenêtres
 │   ├── Error30k.jsx  clin d'œil : taper « 30k »
@@ -52,6 +53,11 @@ src/
   l'écran défile dans son cadre, puis on passe à la suivante.
 - Les liens `href="#id"` changent de slide : c'est `Deck.jsx` qui les intercepte.
 - Une fenêtre ouverte (`role="dialog"`) suspend la navigation entre slides.
+- Animations : chaque bloc d'une slide est enveloppé dans `<Reveal variant="…">` (rise, blur, left,
+  right, zoom, flip, wipe, wipeUp, pop, line). Il joue son entrée à l'arrivée de la slide et sa sortie
+  quand on la quitte ; sur téléphone, à l'entrée et à la sortie de l'écran, à chaque passage. Donner à
+  chaque slide des variantes différentes. Ne pas mettre de classe `translate`/`scale` Tailwind sur un
+  Reveal (motion écrase `transform`) : positionner un conteneur autour.
 
 ## Où modifier quoi
 

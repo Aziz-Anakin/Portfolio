@@ -10,7 +10,7 @@ function SlideFrame({ title, bleed = false, start = false, children }) {
     <div className="flex w-full flex-1 flex-col">
       <div className="container-page flex items-end justify-between gap-6 pt-[clamp(0.25rem,2.5vh,1.75rem)]">
         {/* Titre en relief (React Bits « Depth Text ») : il tourne doucement tout seul */}
-        <Reveal as="h2" y={16}>
+        <Reveal as="h2" variant="wipe">
           <DepthText
             text={title}
             layers={18}
