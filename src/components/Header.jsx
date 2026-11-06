@@ -9,6 +9,9 @@ import SideDock from './SideDock.jsx'
 import { CheckIcon, CloseIcon, MenuIcon, QrIcon, ShareIcon } from './Icons.jsx'
 import logo from '../assets/images/logo.png'
 
+// Photo de profil GitHub : la changer sur GitHub la change ici. Le logo local sert si GitHub ne répond pas.
+const AVATAR = `https://github.com/${PROFILE.github.label}.png?size=80`
+
 const iconButton = 'flex h-11 w-11 cursor-pointer items-center justify-center rounded-full transition-transform duration-300 ease-out hover:-translate-y-0.5'
 
 function ShareButton() {
@@ -81,7 +84,13 @@ function Header({ onOpenCv }) {
     <header className={`z-50 shrink-0 ${mobile ? 'sticky top-0 bg-[var(--bg)]' : 'relative'}`}>
       <div className="container-page relative flex h-[var(--header-h)] items-center justify-between gap-4">
         <a href="#home" className="flex shrink-0 items-center gap-3" aria-label={`${PROFILE.name}, retour à l’accueil`}>
-          <img src={logo} alt="" width="40" height="40" className="h-10 w-10 rounded-full object-cover" />
+          <img
+            src={AVATAR}
+            onError={(e) => {
+              e.currentTarget.onerror = null
+              e.currentTarget.src = logo
+            }}
+            alt="" width="40" height="40" className="h-10 w-10 rounded-full object-cover" />
           <span className="t-small hidden font-semibold sm:block">{PROFILE.name}</span>
         </a>
 
