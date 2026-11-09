@@ -18,7 +18,7 @@ const ENTER = {
   down: { x: 0, y: 36 },
 }
 
-function Poke({ name, className = '', k = '[--k:2] md:[--k:3]', clip, flip = false, tilt = 0, from = 'down', halo, tag = false, rim = false, inert = false, delay = 0, onGradient = false }) {
+function Poke({ name, className = '', k = '[--k:0.75] md:[--k:2]', clip, flip = false, tilt = 0, from = 'down', halo, tag = false, rim = false, inline = false, inert = false, delay = 0, onGradient = false }) {
   const reduce = useReducedMotion()
   const p = POKEMON[name]
   const enter = ENTER[from]
@@ -48,7 +48,7 @@ function Poke({ name, className = '', k = '[--k:2] md:[--k:3]', clip, flip = fal
     </div>
   )
 
-  const body = (
+  const inner = (
     <>
       {halo === 'diamond' && (
         <span aria-hidden="true" className={`absolute left-1/2 top-1/2 -z-10 block aspect-square w-[78%] -translate-x-1/2 -translate-y-1/2 rotate-45 border ${onGradient ? 'border-white/50' : 'border-bright/40'}`} />
@@ -59,15 +59,19 @@ function Poke({ name, className = '', k = '[--k:2] md:[--k:3]', clip, flip = fal
       {sprite}
     </>
   )
+  // En ligne : la boîte garde la largeur du sprite mais pas sa hauteur, il dépasse vers le haut.
+  const body = inline ? <div className="absolute bottom-0 left-0">{inner}</div> : inner
+  const box = inline ? { width: `calc(var(--k) * ${p.w}px)`, height: 0 } : undefined
 
-  const cls = `poke-wrap absolute isolate ${inert ? 'pointer-events-none' : 'pointer-events-none [&_.poke-sprite]:pointer-events-auto'} ${k} ${className}`
+  const cls = `poke-wrap ${inline ? 'relative shrink-0 self-end' : 'absolute'} isolate ${inert ? 'pointer-events-none' : 'pointer-events-none [&_.poke-sprite]:pointer-events-auto'} ${k} ${className}`
   if (reduce) {
-    return <div aria-hidden="true" className={cls}>{body}</div>
+    return <div aria-hidden="true" className={cls} style={box}>{body}</div>
   }
   return (
     <motion.div
       aria-hidden="true"
       className={cls}
+      style={box}
       initial={{ opacity: 0, ...enter, scale: 0.94 }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '0px 0px -12% 0px' }}

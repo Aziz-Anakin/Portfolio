@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { STEAM_GAMES, ADN_ANIMES } from '../data/interests'
-import Poke from '../components/game/Poke.jsx'
 import Section from '../components/Section.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import Spawn from '../components/Spawn.jsx'
@@ -37,10 +36,8 @@ function Interests() {
 
   return (
     <Section id="interests">
-      <SectionTitle kicker="Intérêts" level={6}>Intérêts</SectionTitle>
-      <div className="relative grid gap-4 md:grid-cols-2">
-        {/* Dracaufeu est perché sur le coin haut droit de la carte Anime, sans toucher au texte. */}
-        <Poke name="charizard" from="up" tilt={4} inert className="z-10 -top-32 -right-4 md:-top-[10.5rem] md:right-6" />
+      <SectionTitle kicker="Intérêts" poke="charizard" level={6}>Intérêts</SectionTitle>
+      <div className="grid gap-4 md:grid-cols-2">
         <Spawn>
           <LauncherCard cover={STEAM_GAMES[0].image} badge={<SteamMark className="h-8 w-8 text-[#66c0f4]" />} title="Jeux vidéo" count={`${STEAM_GAMES.length} jeux`} onClick={() => setOpen('steam')} />
         </Spawn>

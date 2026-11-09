@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { PROJECTS } from '../data/projects'
-import Poke from '../components/game/Poke.jsx'
 import Section from '../components/Section.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import Spawn from '../components/Spawn.jsx'
@@ -66,13 +65,11 @@ function Projects() {
 
   return (
     <Section id="projects">
-      {/* Kyogre remonte de derrière le bord bas de la section, côté gauche, et passe derrière les cartes. */}
-      <Poke name="kyogre" from="down" flip tilt={3} clip="0 0 38% 0" className="bottom-[calc(var(--k)*-31.5px)] -left-4 md:-left-10" />
-      <SectionTitle kicker="Projets" level={2}>Projets</SectionTitle>
+      <SectionTitle kicker="Projets" poke="kyogre" level={2}>Projets</SectionTitle>
       <p className="-mt-4 mb-8 max-w-2xl text-lg leading-relaxed md:-mt-8">
         {n} projets web. Chaque projet s’ouvre dans une fenêtre avec ses captures d’écran, sa fiche et ses technologies.
       </p>
-      <ul className="grid gap-5 md:grid-cols-2 lg:gap-6 [&>li]:relative">
+      <ul className="grid gap-5 md:grid-cols-2 lg:gap-6">
         {PROJECTS.map((project, i) => (
           <li key={project.id}>
             <Spawn delay={(i % 2) * 0.15} className="h-full">

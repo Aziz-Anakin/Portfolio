@@ -1,7 +1,6 @@
 import { ArrowUpRight, FileText, Mail } from 'lucide-react'
 import { GitHubIcon, LinkedInIcon } from '../components/Icons.jsx'
 import { PROFILE } from '../data/profile'
-import Poke from '../components/game/Poke.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Spawn from '../components/Spawn.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
@@ -17,11 +16,9 @@ const LINKS = [
 // Contact : grande bannière bleue, un lien par rectangle.
 function Contact() {
   return (
-    <section id="contact" className="relative overflow-x-clip bg-brand-gradient">
-      <div className="relative mx-auto max-w-6xl px-5 pb-48 pt-20 md:py-28">
-        {/* Le boss final se dresse en bas à droite, dans la place laissée libre par la grille. */}
-        <Poke name="giratina" from="right" tilt={-3} halo="diamond" tag onGradient className="bottom-8 -right-4 md:bottom-12 md:right-0" />
-        <SectionTitle kicker="Boss final · Contact" level={7} onGradient>Contact</SectionTitle>
+    <section id="contact" className="relative bg-brand-gradient">
+      <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+        <SectionTitle kicker="Boss final · Contact" poke="giratina" level={7} onGradient>Contact</SectionTitle>
         <Reveal as="p" className="mb-10 max-w-2xl font-mono text-sm uppercase tracking-wider">
           {PROFILE.availability}
         </Reveal>
