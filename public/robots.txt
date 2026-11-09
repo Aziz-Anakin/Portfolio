@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aziz-anakin.github.io/Portfolio/sitemap.xml

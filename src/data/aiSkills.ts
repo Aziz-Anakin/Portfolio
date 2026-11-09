@@ -1,0 +1,55 @@
+// Pas de texte pour se justifier : Yanis montre simplement ce qu'il utilise avec l'IA (outils dans la grille, skills dans la pile de cartes).
+// Skills pour agents IA (des instructions qui apprennent à l'IA un domaine) et serveurs MCP utiles à un développeur full-stack :
+// front, back, base de données, tests, sécurité, déploiement. Les dépôts existent (vérifiés) ; la liste exacte est à confirmer par Yanis.
+// `logo` : logo de la marque (URL), `invert` : logo noir passé en blanc ; sans logo, `icon` (nom d'icône lucide) le remplace.
+
+const DEV = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons'
+const SI = 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons'
+
+export const AI_SKILLS = [
+  { id: 'frontend-design', name: 'Frontend Design', tag: 'Front', source: 'Anthropic', logo: `${SI}/anthropic.svg`, invert: true,
+    text: 'Des interfaces web soignées et originales, loin des mises en page génériques.',
+    href: 'https://github.com/anthropics/skills/tree/main/skills/frontend-design' },
+  { id: 'react-best-practices', name: 'React Best Practices', tag: 'Front', source: 'Vercel', logo: `${DEV}/vercel/vercel-original.svg`, invert: true,
+    text: 'Les règles de performance pour écrire du React et du Next.js rapide.',
+    href: 'https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices' },
+  { id: 'web-design-guidelines', name: 'Web Design Guidelines', tag: 'Front', source: 'Vercel', logo: `${DEV}/vercel/vercel-original.svg`, invert: true,
+    text: 'Audit d’une interface : accessibilité, ergonomie et bonnes pratiques du web.',
+    href: 'https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines' },
+  { id: 'ui-ux-pro-max', name: 'UI UX Pro Max', tag: 'Design', source: 'nextlevelbuilder', icon: 'Sparkles',
+    text: 'Intelligence de design : couleurs, typographie et mise en page pour tous types d’interfaces.',
+    href: 'https://github.com/nextlevelbuilder/ui-ux-pro-max-skill' },
+  { id: 'shadcn-ui', name: 'shadcn/ui', tag: 'Front', source: 'shadcn', logo: `${SI}/shadcnui.svg`, invert: true,
+    text: 'Composants accessibles que l’IA sait installer et utiliser via un serveur MCP.',
+    href: 'https://ui.shadcn.com' },
+  { id: 'react-bits', name: 'React Bits', tag: 'Front', source: 'David Haz', icon: 'Layers',
+    text: 'Composants animés pour React, avec des skills de design pour agents IA.',
+    href: 'https://reactbits.dev' },
+  { id: 'postgres-best-practices', name: 'Postgres Best Practices', tag: 'Base de données', source: 'Supabase', logo: `${DEV}/postgresql/postgresql-original.svg`,
+    text: 'Schémas, index et requêtes PostgreSQL écrits dans les règles de l’art.',
+    href: 'https://github.com/supabase/agent-skills/tree/main/skills/supabase-postgres-best-practices' },
+  { id: 'mcp-builder', name: 'MCP Builder', tag: 'Back', source: 'Anthropic', logo: `${SI}/anthropic.svg`, invert: true,
+    text: 'Créer des serveurs MCP de qualité pour brancher une API à un agent IA.',
+    href: 'https://github.com/anthropics/skills/tree/main/skills/mcp-builder' },
+  { id: 'webapp-testing', name: 'Webapp Testing', tag: 'Tests', source: 'Anthropic', logo: `${DEV}/playwright/playwright-original.svg`,
+    text: 'Tester une application web dans un vrai navigateur avec Playwright.',
+    href: 'https://github.com/anthropics/skills/tree/main/skills/webapp-testing' },
+  { id: 'test-driven-development', name: 'Test-Driven Development', tag: 'Tests', source: 'Superpowers', icon: 'FlaskConical',
+    text: 'Écrire le test avant le code : une méthode rigoureuse pour livrer sans régression.',
+    href: 'https://github.com/obra/superpowers/tree/main/skills/test-driven-development' },
+  { id: 'systematic-debugging', name: 'Systematic Debugging', tag: 'Qualité', source: 'Superpowers', icon: 'Bug',
+    text: 'Une démarche pas à pas pour trouver la vraie cause d’un bug avant de corriger.',
+    href: 'https://github.com/obra/superpowers/tree/main/skills/systematic-debugging' },
+  { id: 'context7', name: 'Context7', tag: 'MCP', source: 'Upstash', icon: 'BookOpen',
+    text: 'La documentation à jour des bibliothèques, directement dans le contexte de l’agent.',
+    href: 'https://github.com/upstash/context7' },
+  { id: 'playwright-mcp', name: 'Playwright MCP', tag: 'MCP', source: 'Microsoft', logo: `${DEV}/playwright/playwright-original.svg`,
+    text: 'Laisser l’agent piloter un navigateur pour vérifier le rendu de ce qu’il construit.',
+    href: 'https://github.com/microsoft/playwright-mcp' },
+  { id: 'trail-of-bits', name: 'Trail of Bits Skills', tag: 'Sécurité', source: 'Trail of Bits', icon: 'ShieldCheck',
+    text: 'Détection de vulnérabilités et audit de sécurité du code.',
+    href: 'https://github.com/trailofbits/skills' },
+  { id: 'deploy-to-vercel', name: 'Deploy to Vercel', tag: 'Déploiement', source: 'Vercel', logo: `${DEV}/vercel/vercel-original.svg`, invert: true,
+    text: 'Mettre une application en ligne sur Vercel directement depuis l’agent.',
+    href: 'https://github.com/vercel-labs/agent-skills/tree/main/skills/deploy-to-vercel' },
+]
