@@ -1,0 +1,16 @@
+/* Oscillation 3D pour écrans tactiles : animée par le compositeur (GPU). */
+.tilted-card-sway {
+  animation: tilted-card-sway 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes tilted-card-sway {
+  0%, 100% { transform: rotateX(0deg) rotateY(var(--tilt-y)); }
+  25%      { transform: rotateX(var(--tilt-x)) rotateY(0deg); }
+  50%      { transform: rotateX(0deg) rotateY(calc(var(--tilt-y) * -1)); }
+  75%      { transform: rotateX(calc(var(--tilt-x) * -1)) rotateY(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilted-card-sway { animation: none; }
+}

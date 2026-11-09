@@ -1,0 +1,193 @@
+/* Police Anton self-hébergée (fiable sur Safari iOS) */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/anton-latin.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Design du site : dégradé bleu · violet · rose sur fond indigo sombre, angles droits partout
+   (aucun arrondi), filets fins.
+   Anton pour les titres et les grands chiffres, Space Mono pour les étiquettes
+   (étiquettes mono en capitales), Space Grotesk pour le texte.
+   Tokens (tailwind.config.js) : brand violet, bright lavande (texte sur fond sombre), pink, azure,
+   ink (page), panel (cartes), line (filets) ; dégradé `bg-brand-gradient` pour les bannières.
+   ───────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  /* Les éventails de cartes (Stack, Card Swap) dépassent un peu sur mobile : pas de défilement horizontal. `clip`
+     ne crée pas de conteneur de défilement, l'en-tête reste collé en haut. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-ink font-sans text-white antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Une section reçoit le focus après un clic sur un lien interne : pas de cadre autour de toute la section. */
+  section[tabindex='-1']:focus-visible {
+    outline: none;
+  }
+  ::selection {
+    @apply bg-brand text-white;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-bright;
+  }
+}
+
+
+@layer utilities {
+  /* Texte en dégradé bleu · violet · rose (grands chiffres). */
+  .text-gradient {
+    background-image: linear-gradient(90deg, #6f8bff 0%, #b07cff 50%, #ff6ec7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+/* ── Mini-jeu : Pac-Man, bonus cachés, Konami code ── */
+@layer components {
+  .pac-top,
+  .pac-bottom {
+    transform-box: view-box;
+    transform-origin: 16px 16px;
+  }
+  .pac-top {
+    animation: pac-top 0.32s linear infinite;
+  }
+  .pac-bottom {
+    animation: pac-bottom 0.32s linear infinite;
+  }
+  @keyframes pac-top {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(-32deg); }
+  }
+  @keyframes pac-bottom {
+    0%, 100% { transform: rotate(3deg); }
+    50% { transform: rotate(32deg); }
+  }
+
+  /* Fantômes : pieds qui alternent, léger rebond. */
+  .ghost-foot-a {
+    animation: ghost-foot 0.36s steps(1) infinite;
+  }
+  .ghost-foot-b {
+    animation: ghost-foot-inv 0.36s steps(1) infinite;
+  }
+  @keyframes ghost-foot {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes ghost-foot-inv {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  /* Steve qui marche : jambes et bras balancent en sens opposés (par paliers, comme un sprite), petit rebond. */
+  .steve-leg-f,
+  .steve-leg-b,
+  .steve-arm-f,
+  .steve-arm-b {
+    transform-origin: 50% 0;
+  }
+  .steve-arm-f,
+  .steve-leg-b {
+    animation: steve-swing-a 0.42s steps(4, end) infinite;
+  }
+  .steve-leg-f,
+  .steve-arm-b {
+    animation: steve-swing-b 0.42s steps(4, end) infinite;
+  }
+  .steve-walker .steve {
+    animation: steve-bob 0.21s steps(1, end) infinite;
+  }
+  @keyframes steve-swing-a {
+    0%, 100% { transform: rotate(-30deg); }
+    50% { transform: rotate(30deg); }
+  }
+  @keyframes steve-swing-b {
+    0%, 100% { transform: rotate(30deg); }
+    50% { transform: rotate(-30deg); }
+  }
+  @keyframes steve-bob {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  /* Chapeaux de paille qui tombent (easter egg) et Chopper qui se cache. */
+  .onepiece-fall {
+    animation-name: onepiece-fall;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+  @keyframes onepiece-fall {
+    0% { transform: translate3d(0, -12vh, 0) rotate(-20deg); opacity: 1; }
+    100% { transform: translate3d(30px, 112vh, 0) rotate(25deg); opacity: 1; }
+  }
+  .chopper-peek svg {
+    animation: chopper-peek 3.6s steps(1, end) infinite;
+  }
+  @keyframes chopper-peek {
+    0%, 70%, 100% { transform: translateY(0); }
+    74% { transform: translateY(-2px); }
+    78% { transform: translateY(0); }
+    82% { transform: translateY(-2px); }
+  }
+
+  /* Pokémon des titres : léger flottement par paliers, comme un sprite de jeu. */
+  .poke-hop {
+    animation: poke-hop 0.9s steps(2, end) infinite;
+  }
+  @keyframes poke-hop {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .pickup-pop {
+    animation: pickup-pop 0.8s ease-out forwards;
+  }
+  @keyframes pickup-pop {
+    0% { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(1.7) translateY(-16px); opacity: 0; }
+  }
+  /* Fantôme mangé : il gonfle et s'efface sur place. */
+  .ghost-pop {
+    animation: ghost-pop 0.26s ease-out forwards;
+  }
+  @keyframes ghost-pop {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.7); opacity: 0; }
+  }
+  .ghost-bob {
+    animation: ghost-bob 0.72s ease-in-out infinite;
+  }
+  @keyframes ghost-bob {
+    0%, 100% { transform: translateY(-1.5px); }
+    50% { transform: translateY(1.5px); }
+  }
+
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .pac-top, .pac-bottom, .ghost-foot-a, .ghost-foot-b, .ghost-bob, .ghost-pop, .poke-hop, .steve-arm-f, .steve-arm-b, .steve-leg-f, .steve-leg-b, .steve-walker .steve, .onepiece-fall, .chopper-peek svg {
+      animation: none;
+    }
+  }
+}
+
