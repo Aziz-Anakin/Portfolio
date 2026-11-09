@@ -2,6 +2,7 @@ import { PROFILE } from '../data/profile'
 import Section from '../components/Section.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import Reveal from '../components/Reveal.jsx'
+import Poke from '../components/game/Poke.jsx'
 import Spawn from '../components/Spawn.jsx'
 import { Card, CardLabel } from '../components/ui/card.jsx'
 
@@ -15,7 +16,9 @@ const FACTS = [
 function Profile() {
   return (
     <Section id="about">
-      <SectionTitle kicker="Profil" poke={['rayquaza', 'pikachu']} level={1}>Profil</SectionTitle>
+      {/* Rayquaza traverse le bord de la bannière et entre dans la section par la droite, coupé par le cadre. */}
+      <Poke name="rayquaza" from="right" tilt={-5} halo="diamond" k="[--k:2] md:[--k:3]" className="-right-16 -top-12 md:-right-24 md:-top-20" />
+      <SectionTitle kicker="Profil" level={1}>Profil</SectionTitle>
       <Reveal as="p" className="max-w-3xl text-xl leading-relaxed md:text-2xl">
         {PROFILE.role}. Je construis des applications complètes, du besoin de départ jusqu’à la mise en ligne.
       </Reveal>

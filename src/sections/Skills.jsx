@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
 import { AI_SKILLS, SKILL_GROUPS } from '../data/skills'
+import Poke from '../components/game/Poke.jsx'
 import Section from '../components/Section.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import Reveal from '../components/Reveal.jsx'
@@ -10,7 +11,7 @@ import Spawn from '../components/Spawn.jsx'
 function Skills() {
   return (
     <Section id="skills">
-      <SectionTitle kicker="Compétences" poke={['groudon', 'mewtwo']} level={3}>Compétences</SectionTitle>
+      <SectionTitle kicker="Compétences" level={3}>Compétences</SectionTitle>
       <Spawn>
         <dl className="grid grid-cols-2 border-b border-line">
           {SKILL_GROUPS.map((group) => (
@@ -22,12 +23,15 @@ function Skills() {
         </dl>
       </Spawn>
 
-      <Reveal className="mt-14 md:mt-20">
+      <Reveal className="mt-32 md:mt-44">
         <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-bright">
           <span aria-hidden="true" className="h-1.5 w-1.5 bg-pink" />
           Skills IA pour le web
         </h3>
-        <ul className="mt-5 grid gap-4 md:grid-cols-3">
+        <div className="relative mt-5">
+        {/* Mewtwo se tient debout sur la rangée des cartes IA, à droite du titre, dans un losange. */}
+        <Poke name="mewtwo" from="up" halo="diamond" tag className="bottom-full right-3 -mb-1 md:right-10" />
+        <ul className="grid gap-4 md:grid-cols-3 [&>li]:relative">
           {AI_SKILLS.map((skill) => (
             <li key={skill.name}>
               <a
@@ -46,6 +50,7 @@ function Skills() {
             </li>
           ))}
         </ul>
+        </div>
       </Reveal>
     </Section>
   )

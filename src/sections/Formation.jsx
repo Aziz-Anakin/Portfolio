@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import { PARCOURS } from '../data/parcours'
+import Poke from '../components/game/Poke.jsx'
 import Section from '../components/Section.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import Reveal from '../components/Reveal.jsx'
@@ -41,7 +42,9 @@ function Formation() {
 
   return (
     <Section id="formation">
-      <SectionTitle kicker="Formation" poke={['zekrom', 'palkia']} level={5}>Formation</SectionTitle>
+      {/* Zekrom se dresse en bas à gauche, sur un bloc de dégradé, sous la colonne du numéro. */}
+      <Poke name="zekrom" from="down" flip tilt={-2} halo="block" rim k="[--k:2]" className="bottom-2 -left-2 md:bottom-4 md:left-0" />
+      <SectionTitle kicker="Formation" level={5}>Formation</SectionTitle>
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
         <Reveal className="lg:col-span-4">
           <p className="font-anton text-[clamp(3.5rem,9vw,7rem)] leading-none tracking-wide">

@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
 import { PARCOURS } from '../data/parcours'
+import Poke from '../components/game/Poke.jsx'
 import Section from '../components/Section.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import Spawn from '../components/Spawn.jsx'
@@ -11,8 +12,10 @@ const EXPERIENCES = PARCOURS.filter((step) => step.kind === 'Expérience')
 function Experience() {
   return (
     <Section id="experience">
-      <SectionTitle kicker="Expérience" poke={['kyurem', 'lucario']} level={4}>Expérience</SectionTitle>
-      <div className="space-y-4">
+      <SectionTitle kicker="Expérience" level={4}>Expérience</SectionTitle>
+      <div className="relative space-y-4 [&>*:not(.poke-wrap)]:relative">
+        {/* Kyurem se cache derrière la première carte et laisse dépasser sa tête au-dessus du bord haut. */}
+        <Poke name="kyurem" from="left" tilt={2} className="top-[calc(var(--k)*-56px)] -right-8 md:right-14" />
         {EXPERIENCES.map((exp, i) => (
           <Spawn key={exp.place} delay={i * 0.1}>
             <Card className="grid gap-6 p-6 hover:border-bright md:grid-cols-[14rem_1fr] md:p-8">

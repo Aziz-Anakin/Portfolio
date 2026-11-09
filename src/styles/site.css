@@ -151,13 +151,21 @@
     82% { transform: translateY(-2px); }
   }
 
-  /* Pokémon des titres : léger flottement par paliers, comme un sprite de jeu. */
-  .poke-hop {
-    animation: poke-hop 0.9s steps(2, end) infinite;
+  /* Pokémon des sections : flottement lent et légère rotation (autour de l'inclinaison de repos `--poke-tilt`). */
+  .poke-float {
+    animation: poke-float 7s ease-in-out infinite alternate;
+    transform-origin: 50% 80%;
   }
-  @keyframes poke-hop {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+  @keyframes poke-float {
+    0% { transform: translateY(0) rotate(calc(var(--poke-tilt, 0deg) - 1.2deg)); }
+    100% { transform: translateY(-9px) rotate(calc(var(--poke-tilt, 0deg) + 1.2deg)); }
+  }
+  /* Au survol : un petit coup de zoom et un peu plus de lumière. */
+  .poke-sprite {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .poke-sprite:hover {
+    transform: scale(1.06) rotate(-2deg);
   }
   .pickup-pop {
     animation: pickup-pop 0.8s ease-out forwards;
@@ -185,7 +193,7 @@
 
 
   @media (prefers-reduced-motion: reduce) {
-    .pac-top, .pac-bottom, .ghost-foot-a, .ghost-foot-b, .ghost-bob, .ghost-pop, .poke-hop, .steve-arm-f, .steve-arm-b, .steve-leg-f, .steve-leg-b, .steve-walker .steve, .onepiece-fall, .chopper-peek svg {
+    .pac-top, .pac-bottom, .ghost-foot-a, .ghost-foot-b, .ghost-bob, .ghost-pop, .poke-float, .steve-arm-f, .steve-arm-b, .steve-leg-f, .steve-leg-b, .steve-walker .steve, .onepiece-fall, .chopper-peek svg {
       animation: none;
     }
   }
